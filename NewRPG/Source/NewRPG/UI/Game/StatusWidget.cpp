@@ -72,6 +72,7 @@ float UStatusWidget::OnStaminaBarChanged()
 	return 0.0f;
 }
 
+
 FText UStatusWidget::OnCNameChanged()
 {
 	APawn* TargetPawn = GetOwningPlayer()->GetPawn();

@@ -29,7 +29,7 @@ protected:
 
 
 public:
-	class ANewRPGGameModeBase* PoolRef;
+	class AMainGameMode* PoolRef;
 
 	void EnqueuePool();
 	void SetEnable(bool Flag);

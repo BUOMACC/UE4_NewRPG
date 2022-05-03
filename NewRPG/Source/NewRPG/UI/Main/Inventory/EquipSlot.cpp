@@ -2,6 +2,7 @@
 
 
 #include "EquipSlot.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/HorizontalBox.h"
 #include "Controller/PlayerGameController.h"
@@ -18,13 +19,6 @@ void UEquipSlot::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	WindowTab->Btn_Close->OnClicked.AddDynamic(this, &UEquipSlot::OnClick_CloseButton);
-}
-
-
-void UEquipSlot::NativeConstruct()
-{
-	Super::NativeConstruct();
-
 	WindowTab->SetDraggableWindow(FText::FromString(TEXT("Equipment")), this);
 
 	// 퀵슬롯들을 모두 SlotBox로부터 가져옴
@@ -37,6 +31,12 @@ void UEquipSlot::NativeConstruct()
 			Slots.Add(TempSlot);
 		}
 	}
+}
+
+
+void UEquipSlot::NativeConstruct()
+{
+	Super::NativeConstruct();
 
 	RegisterEquipEvent();
 	LoadEquipSlot();

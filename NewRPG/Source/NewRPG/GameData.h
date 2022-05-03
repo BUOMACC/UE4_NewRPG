@@ -37,19 +37,19 @@ protected:
 
 public:
 	// Player Slot Data
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<UItem*> Inventory;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<int32> Inventory_Cnt;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<UItem*> QuickSlot;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<int32> QuickSlot_Cnt;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<UItem*> EquipSlot;
 
 	// Player Stat Data
@@ -57,4 +57,7 @@ public:
 
 	// Player Gold
 	int32 Gold;
+
+	// Selected Character
+	int32 CharacterIndex;
 };

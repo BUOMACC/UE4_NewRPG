@@ -12,21 +12,26 @@
 #include "GameData.h"
 
 
+void APlayerGameController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// HudWidget이 없다면 생성
+	if (HudWidgetClass)
+	{
+		HudWidget = CreateWidget<UHudWidget>(this, HudWidgetClass);
+		ShowHud(true);
+		UE_LOG(LogTemp, Warning, TEXT("HI"));
+	}
+}
+
+
 void APlayerGameController::OnPossess(APawn* aPawn)
 {
 	Super::OnPossess(aPawn);
 
-	// 빙의하면 HUD를 보여주고 스텟들을 적용
-	ShowHud(true);
+	// 빙의하면 스텟들을 적용
 	ApplyStat();
-}
-
-
-void APlayerGameController::OnUnPossess()
-{
-	Super::OnUnPossess();
-
-	ShowHud(false);
 }
 
 
@@ -117,14 +122,6 @@ void APlayerGameController::UseQuickSlot3()
 
 void APlayerGameController::ShowHud(bool Show)
 {
-	if (HudWidgetClass == nullptr) return;
-
-	// HudWidget이 없다면 생성
-	if (!HudWidget && HudWidgetClass)
-	{
-		HudWidget = CreateWidget<UHudWidget>(this, HudWidgetClass);
-	}
-
 	// 표시하기로 했다면 Viewport에 추가되어있지 않은 경우에만 보여줍니다.
 	if (Show)
 	{

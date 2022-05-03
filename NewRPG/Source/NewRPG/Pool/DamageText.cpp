@@ -4,7 +4,7 @@
 #include "Pool/DamageText.h"
 #include "Components/WidgetComponent.h"
 #include "UI/Game/DamageTextWidget.h"
-#include "NewRPGGameModeBase.h"
+#include "MainGameMode.h"
 
 
 ADamageText::ADamageText()

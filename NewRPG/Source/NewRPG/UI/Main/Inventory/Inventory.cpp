@@ -19,17 +19,10 @@ void UInventory::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	WindowTab->Btn_Close->OnClicked.AddDynamic(this, &UInventory::OnClick_CloseButton);
-	Text_Gold->TextDelegate.BindUFunction(this, TEXT("UpdateGoldText"));
-}
-
-
-void UInventory::NativeConstruct()
-{
-	Super::NativeConstruct();
-
 	WindowTab->SetDraggableWindow(FText::FromString(TEXT("Inventory")), this);
+	WindowTab->Btn_Close->OnClicked.AddDynamic(this, &UInventory::OnClick_CloseButton);
 	Btn_ItemGiver->OnClicked.AddDynamic(this, &UInventory::GiveItem);
+	Text_Gold->TextDelegate.BindUFunction(this, TEXT("UpdateGoldText"));
 
 	// 인벤토리 슬롯들을 모두 WrapBox_Slots 로부터 가져옴
 	for (int i = 0; i < WrapBox_Slots->GetChildrenCount(); i++)
@@ -40,6 +33,12 @@ void UInventory::NativeConstruct()
 			Slots.Add(TempSlot);
 		}
 	}
+}
+
+
+void UInventory::NativeConstruct()
+{
+	Super::NativeConstruct();
 
 	LoadInventory();
 }

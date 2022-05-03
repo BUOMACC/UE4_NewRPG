@@ -11,9 +11,9 @@
 #include "UI/Item.h"
 
 
-void UQuickSlot::NativeConstruct()
+void UQuickSlot::NativeOnInitialized()
 {
-	Super::NativeConstruct();
+	Super::NativeOnInitialized();
 
 	// Äü½½·ÔµéÀ» ¸ðµÎ SlotBox·ÎºÎÅÍ °¡Á®¿È
 	for (int i = 0; i < SlotBox->GetChildrenCount(); i++)
@@ -24,7 +24,15 @@ void UQuickSlot::NativeConstruct()
 			Slots.Add(TempSlot);
 		}
 	}
+
 	LoadQuickSlot();
+}
+
+
+void UQuickSlot::NativeConstruct()
+{
+	Super::NativeConstruct();
+
 }
 
 

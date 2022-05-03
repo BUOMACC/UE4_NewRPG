@@ -22,8 +22,8 @@ class NEWRPG_API APlayerGameController : public APlayerController
 	
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void OnPossess(APawn* aPawn) override;
-	virtual void OnUnPossess() override;
 	virtual void SetupInputComponent() override;
 
 private:

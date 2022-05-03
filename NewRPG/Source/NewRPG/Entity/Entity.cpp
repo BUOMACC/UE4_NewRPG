@@ -7,7 +7,7 @@
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "NewRPGGameModeBase.h"
+#include "MainGameMode.h"
 
 
 AEntity::AEntity()
@@ -96,7 +96,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 	}
 
 	// 4) 피격자 기준 랜덤한 가까운 위치에 데미지 텍스트 생성
-	ANewRPGGameModeBase* GM = Cast<ANewRPGGameModeBase>(GetWorld()->GetAuthGameMode());
+	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
 	if (GM)
 	{
 		GM->SpawnDamageText(GetActorLocation(), CurrentDamage, bIsCritical);

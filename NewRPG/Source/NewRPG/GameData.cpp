@@ -27,6 +27,9 @@ UGameData::UGameData()
 
 	// Reset Player Gold
 	Gold = 0;
+
+	// Reset Character Index
+	CharacterIndex = 0;
 }
 
 

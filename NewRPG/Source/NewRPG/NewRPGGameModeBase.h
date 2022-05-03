@@ -17,23 +17,4 @@ class NEWRPG_API ANewRPGGameModeBase : public AGameModeBase
 public:
 	ANewRPGGameModeBase();
 
-protected:
-	virtual void BeginPlay() override;
-
-
-protected:
-	UPROPERTY(EditAnywhere, Category = "Pool")
-	TSubclassOf<class ADamageText> DamageTextClass;
-
-	UPROPERTY(EditAnywhere, Category = "Pool")
-	int32 PoolCount;
-
-
-public:
-	TQueue<class ADamageText*> Pool;
-
-
-public:
-	UFUNCTION(BlueprintCallable)
-	ADamageText* SpawnDamageText(FVector SpawnLoc, float DamageAmount, bool bIsCritical);
 };
