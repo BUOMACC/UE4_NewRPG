@@ -21,7 +21,6 @@ void APlayerGameController::BeginPlay()
 	{
 		HudWidget = CreateWidget<UHudWidget>(this, HudWidgetClass);
 		ShowHud(true);
-		UE_LOG(LogTemp, Warning, TEXT("HI"));
 	}
 }
 
