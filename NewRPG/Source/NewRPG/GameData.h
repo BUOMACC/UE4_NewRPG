@@ -10,6 +10,8 @@
 class UItem;
 class UDropData;
 
+DECLARE_DELEGATE_OneParam(FOnCharacterSelected, int32);
+
 /**
  * 
  */

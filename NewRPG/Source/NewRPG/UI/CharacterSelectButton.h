@@ -37,4 +37,7 @@ protected:
 public:
 	UPROPERTY(EditAnywhere)
 	class UTexture2D* CharacterIcon;
+
+	UPROPERTY(EditAnywhere)
+	int32 CharacterIndex;
 };

@@ -4,6 +4,7 @@
 #include "CharacterSelectButton.h"
 #include "Components/Border.h"
 #include "Components/Image.h"
+#include "MenuGameMode.h"
 
 
 void UCharacterSelectButton::NativeConstruct()
@@ -35,8 +36,7 @@ void UCharacterSelectButton::NativeOnMouseLeave(const FPointerEvent& InMouseEven
 FReply UCharacterSelectButton::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply Reply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-
-	UE_LOG(LogTemp, Warning, TEXT("Click Button!"));
-
+	// Button Click Event
+	AMenuGameMode* GM = Cast<AMenuGameMode>(GetWorld()->GetAuthGameMode());
 	return Reply.Handled();
 }
