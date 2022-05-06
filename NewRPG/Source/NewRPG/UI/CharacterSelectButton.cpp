@@ -38,5 +38,7 @@ FReply UCharacterSelectButton::NativeOnMouseButtonDown(const FGeometry& InGeomet
 	FReply Reply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 	// Button Click Event
 	AMenuGameMode* GM = Cast<AMenuGameMode>(GetWorld()->GetAuthGameMode());
+	GM->SelectCharacter(CharacterIndex);
+
 	return Reply.Handled();
 }

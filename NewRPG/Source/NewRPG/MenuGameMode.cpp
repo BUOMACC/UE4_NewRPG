@@ -56,7 +56,16 @@ void AMenuGameMode::BeginPlay()
 void AMenuGameMode::SelectCharacter(int32 NewIndex)
 {
 	// 선택한 캐릭터 표시
+	if (Characters.Num() != 0 && CharacterIndex != NewIndex)
+	{
+		Characters[CharacterIndex]->SetActorHiddenInGame(true);
+		Characters[NewIndex]->SetActorHiddenInGame(false);
+		CharacterIndex = NewIndex;
 
+		// GameData에도 선택한 캐릭터 인덱스 반영
+		UGameData* Data = Cast<UGameData>(GetGameInstance());
+		Data->CharacterIndex = CharacterIndex;
+	}
 }
 
 

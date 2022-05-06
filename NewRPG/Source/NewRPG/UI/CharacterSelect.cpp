@@ -2,7 +2,10 @@
 
 
 #include "CharacterSelect.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
 #include "MenuGameMode.h"
 
 
@@ -12,6 +15,14 @@ void UCharacterSelect::NativeOnInitialized()
 
 	Text_CharacterName->TextDelegate.BindUFunction(this, TEXT("UpdateCharacterNameText"));
 	Text_CharacterDesc->TextDelegate.BindUFunction(this, TEXT("UpdateCharacterDescText"));
+
+	Btn_Next->OnClicked.AddDynamic(this, &UCharacterSelect::OnClick_Next);
+}
+
+
+void UCharacterSelect::OnClick_Next()
+{
+	UGameplayStatics::OpenLevel(GetWorld(), TEXT("Village"));
 }
 
 

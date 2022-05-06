@@ -24,10 +24,16 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* Text_CharacterDesc;
 
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Btn_Next;
+
 protected:
 	UFUNCTION()
 	FText UpdateCharacterNameText();
 
 	UFUNCTION()
 	FText UpdateCharacterDescText();
+
+	UFUNCTION()
+	void OnClick_Next();
 };

@@ -16,6 +16,11 @@ void APlayerGameController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// InputMode Setting
+	FInputModeGameOnly InputMode;
+	SetShowMouseCursor(false);
+	SetInputMode(InputMode);
+
 	// HudWidget이 없다면 생성
 	if (HudWidgetClass)
 	{
