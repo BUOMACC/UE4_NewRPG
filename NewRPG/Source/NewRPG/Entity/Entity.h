@@ -23,7 +23,7 @@ public:
 
 public:
 	// DataTable을 통해 구분할때 또는 UI에 이름을 표시할때 사용함
-	UPROPERTY(EditAnywhere, Category = "Entity")
+	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	FText EntityName;
 
 

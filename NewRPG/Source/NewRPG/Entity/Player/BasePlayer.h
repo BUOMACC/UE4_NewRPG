@@ -28,7 +28,7 @@ public:
 
 protected:
 	// 캐릭터의 정보를 담고있는 Table
-	UPROPERTY(EditAnywhere, Category = "Character Data")
+	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	class UDataTable* CharacterTable;
 
 

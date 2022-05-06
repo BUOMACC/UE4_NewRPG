@@ -44,28 +44,9 @@ ABasePlayer::ABasePlayer()
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComp->SetupAttachment(SpringArmComp);
 
-	// * 기본 Character Data Table 설정
-	static ConstructorHelpers::FObjectFinder<UDataTable> DefaultCharacterTable(TEXT("DataTable'/Game/Data/Entity/CharacterDataTable.CharacterDataTable'"));
-	if (DefaultCharacterTable.Succeeded())
-	{
-		CharacterTable = DefaultCharacterTable.Object;
-	}
-
 	// * 기본 Mesh 설정
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultCharacterMesh(TEXT("SkeletalMesh'/Game/Models/ParagonKwang/Characters/Heroes/Kwang/Skins/Tier2/Kwang_Manban/Meshes/KwangManbun.KwangManbun'"));
-	if (DefaultCharacterMesh.Succeeded())
-	{
-		GetMesh()->SetSkeletalMesh(DefaultCharacterMesh.Object);
-	}
-
-	// * 기본 Animation 설정
-	static ConstructorHelpers::FClassFinder<UAnimInstance> DefaultCharacterAnim(TEXT("AnimBlueprint'/Game/Blueprints/Animation/Character/Kwang/ABP_Kwang.ABP_Kwang_C'"));
-	if (DefaultCharacterAnim.Succeeded())
-	{
-		GetMesh()->AnimClass = DefaultCharacterAnim.Class;
-	}
 
 	// * CharacterMovement 설정
 	GetCharacterMovement()->bOrientRotationToMovement = true;

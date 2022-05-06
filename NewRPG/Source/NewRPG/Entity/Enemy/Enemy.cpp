@@ -17,13 +17,6 @@ AEnemy::AEnemy()
 
 	GetCapsuleComponent()->SetCollisionProfileName("Enemy");
 
-	// * 기본 Enemy Data Table 설정
-	static ConstructorHelpers::FObjectFinder<UDataTable> DefaultEnemyTable(TEXT("DataTable'/Game/Data/Entity/EnemyDataTable.EnemyDataTable'"));
-	if (DefaultEnemyTable.Succeeded())
-	{
-		EnemyTable = DefaultEnemyTable.Object;
-	}
-
 	// * 체력 표시를 위한 WidgetComponent 생성
 	HealthBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
 	HealthBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
@@ -34,18 +27,6 @@ AEnemy::AEnemy()
 	// * 기본 Mesh 설정
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, -88.f), FRotator(0.f, -90.f, 0.f));
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> DefaultEnemyMesh(TEXT("SkeletalMesh'/Game/ParagonGideon/Characters/Heroes/Gideon/Meshes/Gideon.Gideon'"));
-	if (DefaultEnemyMesh.Succeeded())
-	{
-		GetMesh()->SetSkeletalMesh(DefaultEnemyMesh.Object);
-	}
-
-	// * 기본 Animation 설정
-	static ConstructorHelpers::FClassFinder<UAnimInstance> DefaultEnemyAnim(TEXT("AnimBlueprint'/Game/Blueprints/Animation/Enemy/Gideon/ABP_Gideon.ABP_Gideon_C'"));
-	if (DefaultEnemyAnim.Succeeded())
-	{
-		GetMesh()->AnimClass = DefaultEnemyAnim.Class;
-	}
 
 	// * CharacterMovement 설정
 	GetCharacterMovement()->bOrientRotationToMovement = false;

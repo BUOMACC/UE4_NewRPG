@@ -27,7 +27,7 @@ public:
 
 protected:
 	// 적의 정보를 담고있는 Table
-	UPROPERTY(EditAnywhere, Category = "Enemy Data")
+	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	class UDataTable* EnemyTable;
 
 	UPROPERTY(VisibleAnywhere)
