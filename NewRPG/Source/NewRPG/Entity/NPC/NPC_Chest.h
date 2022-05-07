@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Entity/NPC/NPCBase.h"
+#include "GameFramework/Actor.h"
+#include "Entity/InteractActor.h"
 #include "NPC_Chest.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class NEWRPG_API ANPC_Chest : public ANPCBase
+class NEWRPG_API ANPC_Chest : public AActor, public IInteractActor
 {
 	GENERATED_BODY()
 	
@@ -18,11 +19,22 @@ public:
 	ANPC_Chest();
 
 protected:
+	virtual void BeginPlay() override;
+	virtual void Interact() override;
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* BoxComp;
+
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* SMesh_Body;
 
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* SMesh_Top;
 
-	virtual void Interact() override;
+	UPROPERTY(VisibleAnywhere)
+	class UWidgetComponent* WidgetComp;
+
+	UPROPERTY(EditAnywhere)
+	FString NPCName;
 };

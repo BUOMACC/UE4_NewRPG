@@ -3,14 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Entity/NPC/NPCBase.h"
+#include "GameFramework/Character.h"
+#include "Entity/InteractActor.h"
 #include "NPC_Hunt.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class NEWRPG_API ANPC_Hunt : public ANPCBase
+class NEWRPG_API ANPC_Hunt : public ACharacter, public IInteractActor
 {
 	GENERATED_BODY()
 	
@@ -18,5 +16,13 @@ public:
 	ANPC_Hunt();
 
 protected:
+	virtual void BeginPlay() override;
 	virtual void Interact() override;
+
+protected:
+	UPROPERTY(VisibleAnywhere)
+	class UWidgetComponent* WidgetComp;
+
+	UPROPERTY(EditAnywhere)
+	FString NPCName;
 };
