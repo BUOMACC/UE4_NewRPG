@@ -21,6 +21,9 @@ public:
 	TSubclassOf<class ABasePlayer> PreviewClass;
 
 	UPROPERTY(EditAnywhere, Category = "Info")
+	class UTexture2D* Portrait;
+
+	UPROPERTY(EditAnywhere, Category = "Info")
 	float Strength;
 
 	UPROPERTY(EditAnywhere, Category = "Info")

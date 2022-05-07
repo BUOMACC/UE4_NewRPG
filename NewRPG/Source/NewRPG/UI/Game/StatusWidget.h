@@ -17,9 +17,13 @@ class NEWRPG_API UStatusWidget : public UUserWidget
 protected:
 	virtual void NativeOnInitialized() override;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	void SetPortrait(UTexture2D* Portrait);
+
 private:
 	UPROPERTY(Meta = (BindWidget))
-	class UImage* Portrait;
+	class UImage* Image_Portrait;
 
 	UPROPERTY(Meta = (BindWidget))
 	class UProgressBar* HealthBar;
@@ -33,7 +37,6 @@ private:
 	UPROPERTY(Meta = (BindWidget))
 	class UTextBlock* Text_CName;
 
-	
 private:
 	UFUNCTION()
 	float OnHealthBarChanged();

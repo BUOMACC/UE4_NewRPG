@@ -3,6 +3,7 @@
 
 #include "StatusWidget.h"
 #include "Components/ProgressBar.h"
+#include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "Entity/StatComponent.h"
 #include "Entity/Entity.h"
@@ -16,6 +17,12 @@ void UStatusWidget::NativeOnInitialized()
 	ManaBar->PercentDelegate.BindUFunction(this, FName("OnManaBarChanged"));
 	StaminaBar->PercentDelegate.BindUFunction(this, FName("OnStaminaBarChanged"));
 	Text_CName->TextDelegate.BindUFunction(this, FName("OnCNameChanged"));
+}
+
+
+void UStatusWidget::SetPortrait(UTexture2D* Portrait)
+{
+	Image_Portrait->SetBrushFromTexture(Portrait, false);
 }
 
 

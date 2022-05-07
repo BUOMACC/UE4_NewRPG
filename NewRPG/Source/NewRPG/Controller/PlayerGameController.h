@@ -54,6 +54,9 @@ public:
 	UHudWidget* GetHudWidget() { return HudWidget; }
 
 	UFUNCTION(BlueprintPure)
+	UStatusWidget* GetStatusWidget() { return HudWidget->StatusWidget; }
+
+	UFUNCTION(BlueprintPure)
 	UInventory* GetInventory() { return HudWidget->Inventory; }
 
 	UFUNCTION(BlueprintPure)

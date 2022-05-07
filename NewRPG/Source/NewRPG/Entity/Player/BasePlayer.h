@@ -61,6 +61,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Character")
 	void SettingExtraStat();
 
+	// 초상화(프로필 사진) 반환
+	UFUNCTION(BlueprintPure)
+	UTexture2D* GetPortrait();
+
 protected:
 	virtual void OnHit(AEntity* Victim, float Damage) override;
 

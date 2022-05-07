@@ -2,10 +2,12 @@
 
 
 #include "EquipSlot.h"
+#include "Components/Image.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Components/HorizontalBox.h"
 #include "Controller/PlayerGameController.h"
+#include "Entity/Player/BasePlayer.h"
 #include "Kismet/GameplayStatics.h"
 #include "UI/Item.h"
 #include "UI/Main/Inventory/Inventory.h"
@@ -20,6 +22,7 @@ void UEquipSlot::NativeOnInitialized()
 
 	WindowTab->Btn_Close->OnClicked.AddDynamic(this, &UEquipSlot::OnClick_CloseButton);
 	WindowTab->SetDraggableWindow(FText::FromString(TEXT("Equipment")), this);
+	Image_Portrait->BrushDelegate.BindUFunction(this, TEXT("UpdatePortrait"));
 
 	// 퀵슬롯들을 모두 SlotBox로부터 가져옴
 	for (int i = 0; i < SlotBox->GetChildrenCount(); i++)
@@ -184,6 +187,12 @@ void UEquipSlot::UpdateStatText()
 	{
 		Data->StatData = StatData;
 	}
+}
+
+
+void UEquipSlot::SetPortrait(UTexture2D* Portrait)
+{
+	Image_Portrait->SetBrushFromTexture(Portrait, false);
 }
 
 

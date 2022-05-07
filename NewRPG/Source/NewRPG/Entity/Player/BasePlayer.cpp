@@ -159,6 +159,19 @@ void ABasePlayer::SettingExtraStat()
 }
 
 
+UTexture2D* ABasePlayer::GetPortrait()
+{
+	if (CharacterTable == nullptr) return nullptr;
+
+	FCharacterDataRow* CharacterRow = CharacterTable->FindRow<FCharacterDataRow>(FName(*EntityName.ToString()), TEXT(""));
+	if (CharacterRow)
+	{
+		return CharacterRow->Portrait;
+	}
+	return nullptr;
+}
+
+
 void ABasePlayer::OnHit(AEntity* Victim, float Damage)
 {
 	ShakeCamera(UCameraShakeHit_Low::StaticClass());

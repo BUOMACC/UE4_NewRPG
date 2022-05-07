@@ -48,6 +48,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* Text_ASpd;
 
+	UPROPERTY(meta = (BindWidget))
+	class UImage* Image_Portrait;
+
 	UPROPERTY()
 	TArray<class USlot*> Slots;
 
@@ -57,6 +60,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void LoadEquipSlot();
+
+	UFUNCTION(BlueprintCallable)
+	void SetPortrait(UTexture2D* Portrait);
 
 	UFUNCTION(BlueprintPure)
 	USlot* GetEmptySlot();

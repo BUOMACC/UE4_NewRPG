@@ -5,6 +5,7 @@
 #include "Entity/Player/BasePlayer.h"
 #include "KIsmet/Gameplaystatics.h"
 #include "UI/Game/HudWidget.h"
+#include "UI/Game/StatusWidget.h"
 #include "UI/Game/QuickSlot.h"
 #include "UI/Main/Inventory/EquipSlot.h"
 #include "UI/Main/Inventory/Inventory.h"
@@ -36,6 +37,14 @@ void APlayerGameController::OnPossess(APawn* aPawn)
 
 	// 빙의하면 스텟들을 적용
 	ApplyStat();
+
+	// 초상화 변경
+	ABasePlayer* OwningPlayer = Cast<ABasePlayer>(GetCharacter());
+	if (OwningPlayer)
+	{
+		GetStatusWidget()->SetPortrait(OwningPlayer->GetPortrait());
+		GetEquipSlot()->SetPortrait(OwningPlayer->GetPortrait());
+	}
 }
 
 
