@@ -47,6 +47,6 @@ void ANPC_Seller::Interact()
 	APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (PC)
 	{
-		PC->OpenShop();
+		PC->OpenShop(ShopTable);
 	}
 }

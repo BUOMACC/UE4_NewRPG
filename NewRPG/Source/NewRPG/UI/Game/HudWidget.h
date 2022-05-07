@@ -60,5 +60,5 @@ public:
 	void ShowEquipSlot(bool Flag);
 	void ShowInteractMark(bool Flag);
 	void OpenDungeonMenu();
-	void OpenShop();
+	void OpenShop(class UDataTable* ShopTable);
 };

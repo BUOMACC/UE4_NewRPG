@@ -16,6 +16,11 @@ class NEWRPG_API UShop : public UUserWidget
 	
 protected:
 	virtual void NativeOnInitialized() override;
+	virtual void NativeConstruct() override;
+
+public:
+	UPROPERTY(EditAnywhere)
+	class UDataTable* ShopTable;
 
 protected:
 	UPROPERTY(meta = (BindWidget))
@@ -29,9 +34,6 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UShopElement> ElementClass;
-
-	UPROPERTY(EditAnywhere)
-	class UDataTable* ShopTable;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UMessageBox> MessageClass;

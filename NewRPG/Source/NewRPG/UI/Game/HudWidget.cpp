@@ -103,13 +103,14 @@ void UHudWidget::OpenDungeonMenu()
 }
 
 
-void UHudWidget::OpenShop()
+void UHudWidget::OpenShop(UDataTable* ShopTable)
 {
-	if (ShopWidget == nullptr && ShopWidget->IsInViewport()) return;
+	if (ShopTable == nullptr || ShopWidget == nullptr || ShopWidget->IsInViewport()) return;
 
 	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
 	ShopWidget->SetDesiredSizeInViewport(FVector2D(800, 600));
 	ShopWidget->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
 	ShopWidget->SetPositionInViewport(Pos / 2, true);
+	ShopWidget->ShopTable = ShopTable;
 	ShopWidget->AddToViewport();
 }

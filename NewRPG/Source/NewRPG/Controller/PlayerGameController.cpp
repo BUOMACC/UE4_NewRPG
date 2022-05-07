@@ -91,9 +91,9 @@ void APlayerGameController::OpenDungeonMenu()
 }
 
 
-void APlayerGameController::OpenShop()
+void APlayerGameController::OpenShop(class UDataTable* ShopTable)
 {
-	HudWidget->OpenShop();
+	HudWidget->OpenShop(ShopTable);
 	AddUIStack(1);
 	FInputModeUIOnly InputMode;
 	SetShowMouseCursor(true);

@@ -25,4 +25,7 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	FString NPCName;
+
+	UPROPERTY(EditAnywhere)
+	class UDataTable* ShopTable;
 };

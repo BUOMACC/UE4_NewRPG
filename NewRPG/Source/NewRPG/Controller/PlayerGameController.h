@@ -47,7 +47,7 @@ public:
 	void ShowInteractMark(bool Show);
 	void ShowInventory();
 	void OpenDungeonMenu();
-	void OpenShop();
+	void OpenShop(class UDataTable* ShopTable);
 	void AddUIStack(int32 Amount);
 
 	UFUNCTION(BlueprintPure)

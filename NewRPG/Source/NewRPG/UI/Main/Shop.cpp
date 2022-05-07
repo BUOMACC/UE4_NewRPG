@@ -30,11 +30,18 @@ void UShop::NativeOnInitialized()
 	{
 		MessageWidget = CreateWidget<UMessageBox>(this, MessageClass);
 	}
+}
+
+
+void UShop::NativeConstruct()
+{
+	Super::NativeConstruct();
 
 	// * ShopElement 생성
 	UGameData* Data = Cast<UGameData>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (ShopTable == nullptr || Data == nullptr || ElementClass == nullptr) return;
 
+	ShopElements->ClearChildren();
 	TArray<FName> RowNames = ShopTable->GetRowNames();
 	for (FName Name : RowNames)
 	{
