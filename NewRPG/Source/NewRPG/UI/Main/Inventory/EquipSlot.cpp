@@ -171,7 +171,7 @@ void UEquipSlot::UpdateStatText()
 	}
 
 	StatData.Defence = FMath::Clamp(StatData.Defence, 0.f, 100.f);
-	StatData.CritChance = FMath::Clamp(StatData.Defence, 0.f, 100.f);
+	StatData.CritChance = FMath::Clamp(StatData.CritChance, 0.f, 100.f);
 	StatData.AttackSpd = FMath::Clamp(StatData.AttackSpd, 0.f, 40.f);
 
 	// Text °»½Å

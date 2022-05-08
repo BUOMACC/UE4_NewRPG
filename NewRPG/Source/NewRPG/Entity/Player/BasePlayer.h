@@ -86,6 +86,8 @@ private:
 	void TryInteract();
 	void Interact();
 
+	void HealStamina(float DeltaTime);
+
 	// Character Table로부터 받은 정보를 기반으로 스텟을 설정함
 	void SettingStatFromTable();
 
@@ -118,4 +120,11 @@ private:
 
 	// 상호작용 액터
 	AActor* InteractActor;
+
+	// 스테미너 회복시간 (얼마나 스테미너를 사용하지 않아야 회복할지)
+	float Heal_Stamina_Time;
+	// 남은 스테미너 회복시간
+	float Remain_Stamina_Time;
+	// 초당 스테미너 회복량
+	float Heal_Stamina_PerSec;
 };

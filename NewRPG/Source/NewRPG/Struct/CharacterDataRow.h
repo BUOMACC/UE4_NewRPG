@@ -74,6 +74,14 @@ public:
 	// 구를때 소모되는 스테미나
 	UPROPERTY(EditAnywhere, Category = "Info")
 	float RollingDecStamina;
+
+	// 얼마나 스테미너를 사용하지 않아야 스테미너를 회복할지
+	UPROPERTY(EditAnywhere, Category = "Info")
+	float Heal_Stamina_Time;
+
+	// 초당 회복하는 스테미너
+	UPROPERTY(EditAnywhere, Category = "Info")
+	float Heal_Stamina_PerSec;
 		
 	// 무적인지
 	UPROPERTY(EditAnywhere, Category = "Info")

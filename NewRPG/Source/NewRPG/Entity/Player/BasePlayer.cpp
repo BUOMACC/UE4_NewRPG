@@ -68,6 +68,10 @@ ABasePlayer::ABasePlayer()
 
 	RollingDirForward = FVector::ZeroVector;
 	RollingDirRight = FVector::ZeroVector;
+
+	Heal_Stamina_Time = 1.5f;
+	Remain_Stamina_Time = 1.5f;
+	Heal_Stamina_PerSec = 10.f;
 }
 
 
@@ -86,6 +90,7 @@ void ABasePlayer::Tick(float DeltaTime)
 
 	RollingMove();
 	TryInteract();
+	HealStamina(DeltaTime);
 }
 
 
@@ -155,6 +160,8 @@ void ABasePlayer::SettingExtraStat()
 		StatComp->SetDefence(StatComp->GetOriginDefence() + ExtraStat.Defence);
 		StatComp->SetCritChance(StatComp->GetOriginCritChance() + ExtraStat.CritChance);
 		StatComp->SetASpeed(StatComp->GetOriginASpeed() + ExtraStat.AttackSpd);
+
+		StatComp->HealAll();
 	}
 }
 
@@ -234,6 +241,7 @@ void ABasePlayer::RollingStart()
 		// -> 구르는 도중 공격이 불가능한 상태
 		bRolling = true;
 		bInvincible = true;
+		Remain_Stamina_Time = Heal_Stamina_Time;
 		AttackComp->SetComboTiming(false);
 		FRotator TargetRot = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), GetActorLocation() + RollingDirForward + RollingDirRight);
 		SetActorRotation(TargetRot);
@@ -337,6 +345,17 @@ void ABasePlayer::Interact()
 }
 
 
+void ABasePlayer::HealStamina(float DeltaTime)
+{
+	if (Remain_Stamina_Time <= 0)
+	{
+		StatComp->AddStamina(Heal_Stamina_PerSec * DeltaTime);
+		return;
+	}
+	Remain_Stamina_Time -= DeltaTime;
+}
+
+
 void ABasePlayer::SettingStatFromTable()
 {
 	if (CharacterTable == nullptr) return;
@@ -367,6 +386,10 @@ void ABasePlayer::SettingStatFromTable()
 		bSuperArmor = CharacterRow->SuperArmor;
 
 		HitMontage = CharacterRow->HitMontage;
+
+		Heal_Stamina_Time = CharacterRow->Heal_Stamina_Time;
+		Remain_Stamina_Time = Heal_Stamina_Time;
+		Heal_Stamina_PerSec = CharacterRow->Heal_Stamina_PerSec;
 	}
 
 	StatComp->HealAll();
