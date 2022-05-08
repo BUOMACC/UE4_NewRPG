@@ -38,7 +38,7 @@ protected:
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	// 데미지를 입혔을 때 공격자에게 호출
-	virtual void OnHit(AEntity* Victim, float Damage);
+	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass);
 	virtual void Dead(AActor* Killer);
 
 

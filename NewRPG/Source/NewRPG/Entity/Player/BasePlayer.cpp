@@ -140,7 +140,6 @@ void ABasePlayer::ShakeCamera(TSubclassOf<UMatineeCameraShake> ShakeData)
 {
 	if (ShakeData == nullptr) return;
 
-
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
 	if (PC)
 	{
@@ -179,9 +178,9 @@ UTexture2D* ABasePlayer::GetPortrait()
 }
 
 
-void ABasePlayer::OnHit(AEntity* Victim, float Damage)
+void ABasePlayer::OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass)
 {
-	ShakeCamera(UCameraShakeHit_Low::StaticClass());
+	ShakeCamera(CameraClass);
 }
 
 

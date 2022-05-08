@@ -40,6 +40,9 @@ private:
 	float Knockback;		// 뒤로 밀치는 강도
 
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<UMatineeCameraShake> CameraClass;	// 카메라 흔들림
+
+	UPROPERTY(EditAnywhere)
 	float LifeTime;		// Collider 유지시간
 
 	virtual FString GetNotifyName_Implementation() const override;

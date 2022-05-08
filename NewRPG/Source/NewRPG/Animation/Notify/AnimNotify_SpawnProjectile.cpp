@@ -32,7 +32,7 @@ void UAnimNotify_SpawnProjectile::Notify(USkeletalMeshComponent* MeshComp, UAnim
 			FRotator SpawnRot = Owner->GetActorRotation();
 
 			AProjectile* Projectile = World->SpawnActor<AProjectile>(ProjectileClass, SpawnLoc, SpawnRot);
-			Projectile->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime);
+			Projectile->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass);
 		}
 	}
 }

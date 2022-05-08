@@ -66,7 +66,7 @@ public:
 	UTexture2D* GetPortrait();
 
 protected:
-	virtual void OnHit(AEntity* Victim, float Damage) override;
+	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass) override;
 
 
 private:

@@ -46,6 +46,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 {
 	float CurrentDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 
+	ADamageCollider* DamageCollider = Cast<ADamageCollider>(DamageCauser);
 	AEntity* Attacker = Cast<AEntity>(EventInstigator->GetPawn());
 	if (Attacker == nullptr)
 		return CurrentDamage;
@@ -74,12 +75,11 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		else
 		{
 			// - 아니라면 피격애니메이션 재생
-			Attacker->OnHit(this, CurrentDamage);
+			Attacker->OnHit(this, CurrentDamage, DamageCollider->CameraClass);
 		}
 	}
 
 	// 2) Knockback 수치만큼 공격자가 바라보는 방향으로 밀어냄
-	ADamageCollider* DamageCollider = Cast<ADamageCollider>(DamageCauser);
 	if (!bSuperArmor && DamageCollider)
 	{
 		FVector LaunchDir = EventInstigator->GetPawn()->GetActorForwardVector();
@@ -106,7 +106,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 }
 
 
-void AEntity::OnHit(AEntity* Victim, float Damage)
+void AEntity::OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass)
 {
 
 }

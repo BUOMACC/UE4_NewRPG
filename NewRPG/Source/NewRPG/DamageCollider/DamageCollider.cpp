@@ -16,12 +16,13 @@ ADamageCollider::ADamageCollider()
 }
 
 
-void ADamageCollider::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MPRatio, float Knockback, float LifeTime)
+void ADamageCollider::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MPRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass)
 {
 	ColliderOwner = WhoSpawned;
 	DamageRatio = DmgRatio;
 	ManaRatio = MPRatio;
 	KnockbackAmount = Knockback;
+	CameraClass = NewCameraClass;
 
 	SetLifeSpan(LifeTime);
 }

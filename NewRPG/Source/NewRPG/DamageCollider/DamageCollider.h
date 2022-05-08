@@ -20,10 +20,11 @@ public:
 	int32 DamageRatio;		// 데미지 비율 (100 = 1배)
 	int32 ManaRatio;		// 획득마나 비율 (100 = 1배)
 	float KnockbackAmount;  // 뒤로 밀치는 강도
+	TSubclassOf<UMatineeCameraShake> CameraClass;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	virtual void SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime);
+	virtual void SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass);
 
 protected:
 	UFUNCTION()

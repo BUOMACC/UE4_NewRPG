@@ -32,7 +32,7 @@ void UAnimNotify_SpawnDamageBox::Notify(USkeletalMeshComponent* MeshComp, UAnimS
 			FRotator SpawnRot = Owner->GetActorRotation();
 
 			ADamageBox* DamageBox = World->SpawnActor<ADamageBox>(DamageBoxClass, SpawnLoc, SpawnRot);
-			DamageBox->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime);
+			DamageBox->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass);
 			DamageBox->SetBoxSize(BoxSize);
 		}
 	}
