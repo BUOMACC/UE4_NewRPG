@@ -56,7 +56,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 	// 무적상태인 경우 피해를 무시
 	if (bInvincible) return CurrentDamage;
 
-	// 1) 피해를 입음
+	// 1) 피해를 입음 (+MP 회복)
 	if (CurrentDamage > 0)
 	{
 		// - 크리티컬일 경우 데미지 1.5배
@@ -66,6 +66,9 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		// - 방어력만큼 데미지 감소
 		CurrentDamage *= 1.f - (StatComp->GetDefence() / 100.f);
 		StatComp->AddHealth(-CurrentDamage);
+
+		// - 공격자 MP회복 (기본 5 * 비율)
+		Attacker->GetStatComponent()->AddMana(5 * (DamageCollider->ManaRatio / 100.f));
 
 		if (StatComp->GetHealth() <= 0)
 		{

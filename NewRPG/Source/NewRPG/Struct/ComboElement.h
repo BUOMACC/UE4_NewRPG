@@ -14,6 +14,9 @@ public:
 	class UAnimMontage* ComboAnimation;
 
 	UPROPERTY(EditAnywhere)
+	float MPCost;
+
+	UPROPERTY(EditAnywhere)
 	int32 NextComboIndexL;
 
 	UPROPERTY(EditAnywhere)

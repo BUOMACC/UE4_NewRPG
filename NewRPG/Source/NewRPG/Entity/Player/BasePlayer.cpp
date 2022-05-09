@@ -283,30 +283,40 @@ void ABasePlayer::RollingMove()
 
 void ABasePlayer::AttackLeft()
 {
-	if (bCanMove && bBattleMode && !bRolling)
+	if (bCanMove && bBattleMode && !bRolling && AttackComp->GetComboTiming())
 	{
-		AttackComp->AttackLeft(1.0f + (StatComp->GetASpeed() / 100.f));
+		// MP Check
+		if (StatComp->GetMana() >= AttackComp->GetNextLeftComboCost())
+		{
+			StatComp->AddMana(-AttackComp->GetNextLeftComboCost());
+			AttackComp->AttackLeft(1.0f + (StatComp->GetASpeed() / 100.f));
 
-		FRotator StartRot = GetActorRotation();
-		FRotator EndRot = GetControlRotation();
+			FRotator StartRot = GetActorRotation();
+			FRotator EndRot = GetControlRotation();
 
-		FRotator TargetRot = FMath::Lerp(StartRot, EndRot, 0.1f);
-		SetActorRotation(FRotator(StartRot.Roll, TargetRot.Yaw, StartRot.Pitch));
+			FRotator TargetRot = FMath::Lerp(StartRot, EndRot, 0.15f);
+			SetActorRotation(FRotator(StartRot.Roll, TargetRot.Yaw, StartRot.Pitch));
+		}
 	}
 }
 
 
 void ABasePlayer::AttackRight()
 {
-	if (bCanMove && bBattleMode && !bRolling)
+	if (bCanMove && bBattleMode && !bRolling && AttackComp->GetComboTiming())
 	{
-		AttackComp->AttackRight(1.0f + (StatComp->GetASpeed() / 100.f));
+		// MP Check
+		if (StatComp->GetMana() >= AttackComp->GetNextRightComboCost())
+		{
+			StatComp->AddMana(-AttackComp->GetNextRightComboCost());
+			AttackComp->AttackRight(1.0f + (StatComp->GetASpeed() / 100.f));
 
-		FRotator StartRot = GetActorRotation();
-		FRotator EndRot = GetControlRotation();
+			FRotator StartRot = GetActorRotation();
+			FRotator EndRot = GetControlRotation();
 
-		FRotator TargetRot = FMath::Lerp(StartRot, EndRot, 0.1f);
-		SetActorRotation(FRotator(StartRot.Roll, TargetRot.Yaw, StartRot.Pitch));
+			FRotator TargetRot = FMath::Lerp(StartRot, EndRot, 0.15f);
+			SetActorRotation(FRotator(StartRot.Roll, TargetRot.Yaw, StartRot.Pitch));
+		}
 	}
 }
 

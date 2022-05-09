@@ -119,3 +119,27 @@ void UAttackComponent::CancelAttack()
 	bComboTiming = true;
 	bIsAttack = false;
 }
+
+
+float UAttackComponent::GetNextLeftComboCost()
+{
+	if (ComboIndex == -1)
+		return 0.f;
+
+	int32 NextIndex = ComboData->ComboList[ComboIndex].NextComboIndexL;
+	if (NextIndex == -1)
+		return 99999.f;
+	return ComboData->ComboList[NextIndex].MPCost;
+}
+
+
+float UAttackComponent::GetNextRightComboCost()
+{
+	if (ComboIndex == -1)
+		return 0.f;
+
+	int32 NextIndex = ComboData->ComboList[ComboIndex].NextComboIndexR;
+	if (NextIndex == -1)
+		return 99999.f;
+	return ComboData->ComboList[NextIndex].MPCost;
+}

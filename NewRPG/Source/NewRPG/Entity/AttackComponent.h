@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Struct/ComboElement.h"
 #include "AttackComponent.generated.h"
 
 
@@ -67,7 +68,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Attack")
 	void PlayComboAnimByIndex(int32 Index, float PlaySpeed);
 
-
 	UFUNCTION(BlueprintPure, Category = "Attack")
 	int32 GetComboIndex() { return ComboIndex; }
 
@@ -86,4 +86,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Attack")
 	void SetIsAttack(bool IsAttack) { bIsAttack = IsAttack; }
 
+	UFUNCTION(BlueprintPure, Category = "Attack")
+	float GetNextLeftComboCost();
+
+	UFUNCTION(BlueprintPure, Category = "Attack")
+	float GetNextRightComboCost();
 };
