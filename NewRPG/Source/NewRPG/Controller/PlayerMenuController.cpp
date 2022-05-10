@@ -2,7 +2,7 @@
 
 
 #include "PlayerMenuController.h"
-#include "Blueprint/UserWidget.h"
+#include "UI/LoadingScreen.h"
 
 
 void APlayerMenuController::BeginPlay()
@@ -20,4 +20,18 @@ void APlayerMenuController::BeginPlay()
 		MainMenuWidget = CreateWidget<UUserWidget>(this, MainMenuClass);
 		MainMenuWidget->AddToViewport();
 	}
+
+	// LoadingScreen이 없다면 생성
+	if (LoadingClass)
+	{
+		LoadingScreen = CreateWidget<ULoadingScreen>(this, LoadingClass);
+	}
+}
+
+
+void APlayerMenuController::OpenLoadingScreen(FName LevelName, float WaitTime)
+{
+	if (LoadingScreen == nullptr) return;
+	LoadingScreen->AddToViewport();
+	LoadingScreen->StartLoading(LevelName, WaitTime);
 }

@@ -2,6 +2,7 @@
 
 
 #include "CharacterSelect.h"
+#include "Controller/PlayerMenuController.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Engine/World.h"
@@ -22,7 +23,11 @@ void UCharacterSelect::NativeOnInitialized()
 
 void UCharacterSelect::OnClick_Next()
 {
-	UGameplayStatics::OpenLevel(GetWorld(), TEXT("Village"));
+	APlayerMenuController* PC = Cast<APlayerMenuController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (PC)
+	{
+		PC->OpenLoadingScreen(TEXT("Village"), 3.0f);
+	}
 }
 
 

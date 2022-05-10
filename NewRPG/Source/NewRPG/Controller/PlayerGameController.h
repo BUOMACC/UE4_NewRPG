@@ -30,7 +30,16 @@ private:
 	// 플레이어가 사용할 HUD
 	UPROPERTY(EditAnywhere, Category = "Widget")
 	TSubclassOf<UHudWidget> HudWidgetClass;
+
+	UPROPERTY()
 	UHudWidget* HudWidget;
+
+	// 로딩시 사용될 화면
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class ULoadingScreen> LoadingClass;
+
+	UPROPERTY()
+	class ULoadingScreen* LoadingScreen;
 
 	int32 UIStack;	// UI가 쌓인정도, 0이되면 게임을 플레이할 수 있는 환경(마우스 커서표시 ...)
 
@@ -43,11 +52,15 @@ protected:
 
 public:
 	void ApplyStat();	// 빙의시 장착한 장비들의 추가스텟을 스텟에 적용
+
+	// * Show : Collapsed / Visibility를 통한 표시
+	// * Open : AddToViewport를 통한 표시
 	void ShowHud(bool Show);
 	void ShowInteractMark(bool Show);
 	void ShowInventory();
 	void OpenDungeonMenu();
 	void OpenShop(class UDataTable* ShopTable);
+	void OpenLoadingScreen(FName LevelName, float WaitTime);
 	void AddUIStack(int32 Amount);
 
 	UFUNCTION(BlueprintPure)

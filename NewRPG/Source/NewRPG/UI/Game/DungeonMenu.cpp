@@ -41,11 +41,11 @@ void UDungeonMenu::OnClick_Start()
 	APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (PC == nullptr) return;
 
+	PC->AddUIStack(-1);
 	switch (SelectStage)
 	{
 	case 0:
-		PC->AddUIStack(-1);
-		UGameplayStatics::OpenLevel(GetWorld(), TEXT("StageGideon"));
+		PC->OpenLoadingScreen(TEXT("StageGideon"), 3.0f);
 		break;
 	}
 }

@@ -10,6 +10,7 @@
 #include "UI/Main/Inventory/EquipSlot.h"
 #include "UI/Main/Inventory/Inventory.h"
 #include "UI/Main/Inventory/Slot.h"
+#include "UI/LoadingScreen.h"
 #include "GameData.h"
 
 
@@ -22,11 +23,17 @@ void APlayerGameController::BeginPlay()
 	SetShowMouseCursor(false);
 	SetInputMode(InputMode);
 
-	// HudWidget이 없다면 생성
+	// HudWidget이 없다면 생성후 보여줌
 	if (HudWidgetClass)
 	{
 		HudWidget = CreateWidget<UHudWidget>(this, HudWidgetClass);
 		ShowHud(true);
+	}
+
+	// LoadingScreen이 없다면 생성
+	if (LoadingClass)
+	{
+		LoadingScreen = CreateWidget<ULoadingScreen>(this, LoadingClass);
 	}
 }
 
@@ -98,6 +105,14 @@ void APlayerGameController::OpenShop(class UDataTable* ShopTable)
 	FInputModeUIOnly InputMode;
 	SetShowMouseCursor(true);
 	SetInputMode(InputMode);
+}
+
+
+void APlayerGameController::OpenLoadingScreen(FName LevelName, float WaitTime)
+{
+	if (LoadingScreen == nullptr) return;
+	LoadingScreen->AddToViewport();
+	LoadingScreen->StartLoading(LevelName, WaitTime);
 }
 
 

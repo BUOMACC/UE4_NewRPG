@@ -42,11 +42,15 @@ public:
 	// Dungeon Menu
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UDungeonMenu> DungeonMenuClass;
+
+	UPROPERTY()
 	class UDungeonMenu* DungeonMenu;
 
 	// Shop
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UShop> ShopClass;
+
+	UPROPERTY()
 	class UShop* ShopWidget;
 
 private:

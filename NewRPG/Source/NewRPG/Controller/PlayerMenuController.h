@@ -17,8 +17,21 @@ class NEWRPG_API APlayerMenuController : public APlayerController
 protected:
 	virtual void BeginPlay() override;
 
+public:
+	void OpenLoadingScreen(FName LevelName, float WaitTime);
+
 protected:
-	UPROPERTY(EditAnywhere)
+	// 메인 메뉴를 표시할 화면
+	UPROPERTY(EditAnywhere, Category = "Widget")
 	TSubclassOf<class UUserWidget> MainMenuClass;
+
+	UPROPERTY()
 	class UUserWidget* MainMenuWidget;
+
+	// 로딩시 사용될 화면
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class ULoadingScreen> LoadingClass;
+
+	UPROPERTY()
+	class ULoadingScreen* LoadingScreen;
 };
