@@ -41,6 +41,13 @@ private:
 	UPROPERTY()
 	class ULoadingScreen* LoadingScreen;
 
+	// 옵션 화면
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class UOption> OptionClass;
+
+	UPROPERTY()
+	class UOption* OptionWidget;
+
 	int32 UIStack;	// UI가 쌓인정도, 0이되면 게임을 플레이할 수 있는 환경(마우스 커서표시 ...)
 
 protected:
@@ -61,6 +68,7 @@ public:
 	void OpenDungeonMenu();
 	void OpenShop(class UDataTable* ShopTable);
 	void OpenLoadingScreen(FName LevelName, float WaitTime);
+	void OpenOption();
 	void AddUIStack(int32 Amount);
 
 	UFUNCTION(BlueprintPure)

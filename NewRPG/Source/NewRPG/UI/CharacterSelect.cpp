@@ -7,6 +7,7 @@
 #include "Components/TextBlock.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/Option.h"
 #include "MenuGameMode.h"
 
 
@@ -18,15 +19,12 @@ void UCharacterSelect::NativeOnInitialized()
 	Text_CharacterDesc->TextDelegate.BindUFunction(this, TEXT("UpdateCharacterDescText"));
 
 	Btn_Next->OnClicked.AddDynamic(this, &UCharacterSelect::OnClick_Next);
-}
+	Btn_Option->OnClicked.AddDynamic(this, &UCharacterSelect::OnClick_Option);
 
-
-void UCharacterSelect::OnClick_Next()
-{
-	APlayerMenuController* PC = Cast<APlayerMenuController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (PC)
+	// OptionWidget »ý¼º
+	if (OptionClass != nullptr)
 	{
-		PC->OpenLoadingScreen(TEXT("Village"), 3.0f);
+		OptionWidget = CreateWidget<UOption>(this, OptionClass);
 	}
 }
 
@@ -50,4 +48,25 @@ FText UCharacterSelect::UpdateCharacterDescText()
 		return GM->GetSelectedCharacterDesc();
 	}
 	return FText::FromString(TEXT(""));
+}
+
+
+void UCharacterSelect::OnClick_Next()
+{
+	APlayerMenuController* PC = Cast<APlayerMenuController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	if (PC)
+	{
+		PC->OpenLoadingScreen(TEXT("Village"), 3.0f);
+	}
+}
+
+
+void UCharacterSelect::OnClick_Option()
+{
+	if (OptionWidget == nullptr) return;
+
+	if (!OptionWidget->IsInViewport())
+	{
+		OptionWidget->AddToViewport();
+	}
 }

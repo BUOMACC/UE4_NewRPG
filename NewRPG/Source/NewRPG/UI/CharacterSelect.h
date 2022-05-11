@@ -27,6 +27,15 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Btn_Next;
 
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Btn_Option;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UOption> OptionClass;
+
+	UPROPERTY()
+	class UOption* OptionWidget;
+
 protected:
 	UFUNCTION()
 	FText UpdateCharacterNameText();
@@ -36,4 +45,7 @@ protected:
 
 	UFUNCTION()
 	void OnClick_Next();
+
+	UFUNCTION()
+	void OnClick_Option();
 };

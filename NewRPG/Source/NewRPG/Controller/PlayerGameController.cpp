@@ -11,6 +11,7 @@
 #include "UI/Main/Inventory/Inventory.h"
 #include "UI/Main/Inventory/Slot.h"
 #include "UI/LoadingScreen.h"
+#include "UI/Option.h"
 #include "GameData.h"
 
 
@@ -34,6 +35,12 @@ void APlayerGameController::BeginPlay()
 	if (LoadingClass)
 	{
 		LoadingScreen = CreateWidget<ULoadingScreen>(this, LoadingClass);
+	}
+
+	// OptionWidget이 없다면 생성
+	if (OptionClass)
+	{
+		OptionWidget = CreateWidget<UOption>(this, OptionClass);
 	}
 }
 
@@ -64,6 +71,7 @@ void APlayerGameController::SetupInputComponent()
 	InputComponent->BindAction(TEXT("QuickSlot_1"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot1);
 	InputComponent->BindAction(TEXT("QuickSlot_2"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot2);
 	InputComponent->BindAction(TEXT("QuickSlot_3"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot3);
+	InputComponent->BindAction(TEXT("Option"), EInputEvent::IE_Pressed, this, &APlayerGameController::OpenOption);
 }
 
 
@@ -113,6 +121,17 @@ void APlayerGameController::OpenLoadingScreen(FName LevelName, float WaitTime)
 	if (LoadingScreen == nullptr) return;
 	LoadingScreen->AddToViewport();
 	LoadingScreen->StartLoading(LevelName, WaitTime);
+}
+
+
+void APlayerGameController::OpenOption()
+{
+	if (OptionWidget == nullptr) return;
+	AddUIStack(1);
+	FInputModeUIOnly InputMode;
+	SetShowMouseCursor(true);
+	SetInputMode(InputMode);
+	OptionWidget->AddToViewport();
 }
 
 
