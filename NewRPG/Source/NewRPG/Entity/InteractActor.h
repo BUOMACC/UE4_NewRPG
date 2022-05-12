@@ -13,9 +13,7 @@ class UInteractActor : public UInterface
 	GENERATED_BODY()
 };
 
-/**
- * 
- */
+
 class NEWRPG_API IInteractActor
 {
 	GENERATED_BODY()

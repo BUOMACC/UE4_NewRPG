@@ -20,17 +20,16 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-public:	
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass) override;
+	virtual void Dead(AActor* Killer) override;
 
 protected:
 	// 캐릭터의 정보를 담고있는 Table
 	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	class UDataTable* CharacterTable;
-
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -38,7 +37,6 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* CameraComp;
-
 
 public:
 	// 공격모드 상태인지 가져옴
@@ -65,10 +63,6 @@ public:
 	UFUNCTION(BlueprintPure)
 	UTexture2D* GetPortrait();
 
-protected:
-	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass) override;
-
-
 private:
 	// 이동
 	void MoveForward(float Axis);
@@ -90,7 +84,6 @@ private:
 
 	// Character Table로부터 받은 정보를 기반으로 스텟을 설정함
 	void SettingStatFromTable();
-
 
 private:
 	// 공격모드에서 이동속도

@@ -119,7 +119,8 @@ void AEntity::Dead(AActor* Killer)
 {
 	bIsDead = true;
 
-	// 충돌을 없애 길을 막지못하게함, 컨트롤러를 떼어냄
+	// 애니메이션 중지충돌을 없애 길을 막지못하게함, 컨트롤러를 떼어냄
+	StopAnimMontage();
 	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	DetachFromControllerPendingDestroy();
 }

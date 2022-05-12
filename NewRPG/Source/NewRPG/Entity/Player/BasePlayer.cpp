@@ -19,6 +19,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "MainGameMode.h"
 #include "Struct/CharacterDataRow.h"
 #include "Struct/ItemStat.h"
 
@@ -111,6 +112,25 @@ void ABasePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 }
 
 
+void ABasePlayer::Dead(AActor* Killer)
+{
+	Super::Dead(Killer);
+
+	// 플레이중에 플레이어가 죽은경우, 게임모드에 클리어를 실패했다고 알림
+	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (GM)
+	{
+		GM->GameOver();
+	}
+}
+
+
+void ABasePlayer::OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass)
+{
+	ShakeCamera(CameraClass);
+}
+
+
 void ABasePlayer::ToggleBattleMode()
 {
 	// 공격중이라면 모드 전환을 불가능하게 함
@@ -175,12 +195,6 @@ UTexture2D* ABasePlayer::GetPortrait()
 		return CharacterRow->Portrait;
 	}
 	return nullptr;
-}
-
-
-void ABasePlayer::OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass)
-{
-	ShakeCamera(CameraClass);
 }
 
 

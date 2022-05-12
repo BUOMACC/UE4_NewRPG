@@ -2,11 +2,15 @@
 
 
 #include "MainGameMode.h"
+#include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 #include "Pool/DamageText.h"
+#include "UI/Game/DungeonClear.h"
 
 
 AMainGameMode::AMainGameMode()
 {
+	EnemyCount = 0;
 	PoolCount = 50;
 }
 
@@ -15,6 +19,13 @@ void AMainGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// 게임종료 위젯 생성
+	if (DungeonEndClass)
+	{
+		DungeonEndWidget = CreateWidget<UDungeonClear>(UGameplayStatics::GetPlayerController(GetWorld(), 0), DungeonEndClass);
+	}
+
+	// DamageText Pooling
 	if (DamageTextClass == nullptr) return;
 
 	for (int i = 0; i < PoolCount; i++)
@@ -23,6 +34,19 @@ void AMainGameMode::BeginPlay()
 		PoolActor->PoolRef = this;
 
 		Pool.Enqueue(PoolActor);
+	}
+}
+
+
+void AMainGameMode::AddEnemyCount(int32 Amount)
+{
+	EnemyCount += Amount;
+	EnemyCount = FMath::Clamp(EnemyCount, 0, 999);
+
+	// 모든 적이 죽었다면 클리어
+	if (EnemyCount <= 0)
+	{
+		GameClear();
 	}
 }
 
@@ -48,11 +72,33 @@ ADamageText* AMainGameMode::SpawnDamageText(FVector SpawnLoc, float DamageAmount
 
 void AMainGameMode::GameClear()
 {
-	
+	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport()) return;
+
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	FTimerHandle Handle;
+	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
+	{
+		FInputModeUIOnly InputMode;
+		PC->SetInputMode(InputMode);
+		PC->SetShowMouseCursor(true);
+		DungeonEndWidget->AddToViewport();
+		DungeonEndWidget->PlayEndAnimation(true);
+	}), 3.f, false);
 }
 
 
 void AMainGameMode::GameOver()
 {
+	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport()) return;
 
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	FTimerHandle Handle;
+	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([&]()
+	{
+		FInputModeUIOnly InputMode;
+		PC->SetInputMode(InputMode);
+		PC->SetShowMouseCursor(true);
+		DungeonEndWidget->AddToViewport();
+		DungeonEndWidget->PlayEndAnimation(false);
+	}), 3.f, false);
 }

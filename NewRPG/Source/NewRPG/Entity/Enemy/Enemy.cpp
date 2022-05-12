@@ -6,9 +6,10 @@
 #include "Components/CapsuleComponent.h"
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "MainGameMode.h"
 #include "Struct/EnemyDataRow.h"
 #include "UI/Game/HealthBarWidget.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 
 AEnemy::AEnemy()
@@ -43,6 +44,13 @@ void AEnemy::BeginPlay()
 
 	SettingStatFromTable();
 	SettingHealthBar();
+
+	// 적 개체수 증가
+	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (GM)
+	{
+		GM->AddEnemyCount(1);
+	}
 }
 
 
@@ -93,6 +101,13 @@ void AEnemy::SettingHealthBar()
 void AEnemy::Dead(AActor* Killer)
 {
 	Super::Dead(Killer);
+
+	// 적 개체수 감소
+	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (GM)
+	{
+		GM->AddEnemyCount(-1);
+	}
 
 	// 죽으면 체력바를 보이지 않게함
 	HealthBarWidget->SetVisibility(false);

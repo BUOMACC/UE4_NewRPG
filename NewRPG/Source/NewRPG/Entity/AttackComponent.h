@@ -22,11 +22,9 @@ protected:
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
 private:
 	UPROPERTY()
 	class AEntity* OwnerComp;
-
 
 protected:
 	// 현재 콤보 인덱스
@@ -45,7 +43,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Attack")
 	class UComboData* ComboData;
-
 
 public:
 	// AttackData에서 랜덤한 공격을 실행합니다.

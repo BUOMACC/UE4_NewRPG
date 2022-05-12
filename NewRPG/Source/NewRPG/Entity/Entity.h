@@ -20,12 +20,10 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
-
 public:
 	// DataTable을 통해 구분할때 또는 UI에 이름을 표시할때 사용함
 	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	FText EntityName;
-
 
 protected:
 	float MoveSpd;
@@ -37,10 +35,10 @@ protected:
 
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-	// 데미지를 입혔을 때 공격자에게 호출
+	// 데미지를 입혔을때 공격자에게 호출
 	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass);
+	// 죽었을때 호출
 	virtual void Dead(AActor* Killer);
-
 
 protected:
 	UPROPERTY(VisibleAnywhere)

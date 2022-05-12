@@ -17,7 +17,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-
 protected:
 	UPROPERTY(VisibleAnywhere)
 	class UWidgetComponent* DTWidgetComponent;
@@ -26,7 +25,6 @@ protected:
 	float VisibleTime;
 
 	FTimerHandle TimerHandle;
-
 
 public:
 	class AMainGameMode* PoolRef;

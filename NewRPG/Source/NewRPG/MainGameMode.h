@@ -19,10 +19,22 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UDungeonClear> DungeonEndClass;
+
+	UPROPERTY()
+	class UDungeonClear* DungeonEndWidget;
+
+	int32 EnemyCount;
+
+public:
+	void AddEnemyCount(int32 Amount);
 	void GameClear();
 	void GameOver();
 
-	// * DamageText
+// * DamageText Pooling
 protected:
 	UPROPERTY(EditAnywhere, Category = "Pool")
 	TSubclassOf<class ADamageText> DamageTextClass;

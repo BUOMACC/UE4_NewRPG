@@ -18,7 +18,6 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-
 private:
 	// 공격력, 기본(시작) 공격력
 	float Strength;
@@ -49,7 +48,6 @@ private:
 	// 시작 공격속도와 현재 공격속도 (20 = 20%, 최대 40%)
 	float OriginASpeed;
 	float CurrASpeed;
-
 
 public:
 	// * 공격력 Get / Set
@@ -160,7 +158,6 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Stat")
 	void AddASpeed(float Amount) { CurrASpeed = FMath::Clamp<float>(CurrASpeed + Amount, 0.0f, 40.f); }
-
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Stat")
