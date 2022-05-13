@@ -33,11 +33,16 @@ protected:
 	UPROPERTY()
 	TArray<class USlot*> Slots;
 
+	UPROPERTY(meta = (BindWidget))
+	class UTextBlock* Text_Gold;
+
 protected:
 	UFUNCTION()
 	void OnClick_Ok();
 
 public:
 	void PlayEndAnimation(bool IsClear) { (IsClear) ? PlayAnimation(ClearAnimation) : PlayAnimation(FailAnimation); }
-	void AddReward(class UItem* NewItem, int32 Count);
+	void AddRewardsToInventory(class UDropData* NewDropData, int32 Cycle);
+	void AddRewardSlot(class UItem* NewItem, int32 Count);
+	void AddGoldToInventory(int32 Amount);
 };

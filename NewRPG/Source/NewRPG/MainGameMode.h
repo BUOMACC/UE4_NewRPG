@@ -21,13 +21,27 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Widget")
 	TSubclassOf<class UDungeonClear> DungeonEndClass;
 
 	UPROPERTY()
 	class UDungeonClear* DungeonEndWidget;
 
 	int32 EnemyCount;
+
+	// 클리어 보상
+	UPROPERTY(EditAnywhere, Category = "Clear Reward")
+	class UDropData* DropData;
+
+	// 클리어 보상이 몇번 지급될지
+	UPROPERTY(EditAnywhere, Category = "Clear Reward")
+	int32 DropCycle;
+
+	UPROPERTY(EditAnywhere, Category = "Clear Reward")
+	int32 Min_Gold;
+
+	UPROPERTY(EditAnywhere, Category = "Clear Reward")
+	int32 Max_Gold;
 
 public:
 	void AddEnemyCount(int32 Amount);

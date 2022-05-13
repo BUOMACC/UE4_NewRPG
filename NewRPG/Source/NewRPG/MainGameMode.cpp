@@ -2,6 +2,7 @@
 
 
 #include "MainGameMode.h"
+#include "Data/DropData.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Pool/DamageText.h"
@@ -83,6 +84,8 @@ void AMainGameMode::GameClear()
 		PC->SetShowMouseCursor(true);
 		DungeonEndWidget->AddToViewport();
 		DungeonEndWidget->PlayEndAnimation(true);
+		DungeonEndWidget->AddRewardsToInventory(DropData, DropCycle);
+		DungeonEndWidget->AddGoldToInventory(FMath::RandRange(Min_Gold, Max_Gold));
 	}), 3.f, false);
 }
 

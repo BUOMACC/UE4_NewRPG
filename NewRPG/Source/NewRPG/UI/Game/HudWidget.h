@@ -54,6 +54,7 @@ public:
 	class UShop* ShopWidget;
 
 private:
+	UPROPERTY()
 	TArray<class USlot*> QuickSlots;
 	int32 MaxZOrder;
 

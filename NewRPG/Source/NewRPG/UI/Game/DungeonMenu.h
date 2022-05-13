@@ -30,6 +30,15 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Btn_Start;
 
+	UPROPERTY(meta = (BindWidget))
+	class UWrapBox* RewardSlot;
+
+	UPROPERTY(EditAnywhere)
+	TArray<class UDropData*> DropData;
+
+	UPROPERTY()
+	TArray<class USlot*> Slots;
+
 	int32 SelectStage;	// 선택한 스테이지
 
 protected:
@@ -41,4 +50,7 @@ protected:
 
 	UFUNCTION()
 	void OnClick_Start();
+
+	UFUNCTION()
+	void SetRewardSlot(class UDropData* NewDropData);
 };
