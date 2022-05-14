@@ -2,7 +2,7 @@
 
 
 #include "AnimNotify_SpawnDamageBox.h"
-#include "DamageCollider/DamageBox.h"
+#include "DamageObject/DamageBox.h"
 #include "Entity/Entity.h"
 
 

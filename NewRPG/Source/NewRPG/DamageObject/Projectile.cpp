@@ -28,16 +28,9 @@ AProjectile::AProjectile()
 }
 
 
-void AProjectile::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-
 void AProjectile::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass)
 {
-	ProjectileOwner = WhoSpawned;
+	Attacker = WhoSpawned;
 	DamageRatio = DmgRatio;
 	ManaRatio = MpRatio;
 	KnockbackAmount = Knockback;
@@ -49,7 +42,7 @@ void AProjectile::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, fl
 
 void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (ProjectileOwner)
+	if (Attacker)
 	{
 		// 1) 닿은 액터가 Entity인 경우 피해를 입힘
 		// TODO: 나중에 인터페이스를 활용해 데미지박스와 동일하게 처리되도록 할예정임
@@ -57,7 +50,7 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		AEntity* Victim = Cast<AEntity>(OtherActor);
 		if (Victim)
 		{
-			UGameplayStatics::ApplyDamage(OtherActor, (float)ProjectileOwner->CalculateDamage(DamageRatio), ProjectileOwner->GetController(), this, UDamageType::StaticClass());
+			UGameplayStatics::ApplyDamage(OtherActor, (float)Attacker->CalculateDamage(DamageRatio), Attacker->GetController(), this, UDamageType::StaticClass());
 		}
 
 		// 2) 충돌시 이펙트 생성

@@ -3,7 +3,7 @@
 
 #include "AnimNotify_SpawnProjectile.h"
 #include "Entity/Entity.h"
-#include "Projectile/Projectile.h"
+#include "DamageObject/Projectile.h"
 
 
 FString UAnimNotify_SpawnProjectile::GetNotifyName_Implementation() const

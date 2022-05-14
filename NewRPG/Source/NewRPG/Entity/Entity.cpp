@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 #include "Components/CapsuleComponent.h"
-#include "DamageCollider/DamageCollider.h"
+#include "DamageObject/DamageObject.h"
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -46,7 +46,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 {
 	float CurrentDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 
-	ADamageCollider* DamageCollider = Cast<ADamageCollider>(DamageCauser);
+	IDamageObject* DamageObject = Cast<IDamageObject>(DamageCauser);
 	AEntity* Attacker = Cast<AEntity>(EventInstigator->GetPawn());
 	if (Attacker == nullptr)
 		return CurrentDamage;
@@ -68,7 +68,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		StatComp->AddHealth(-CurrentDamage);
 
 		// - 공격자 MP회복 (기본 5 * 비율)
-		Attacker->GetStatComponent()->AddMana(5 * (DamageCollider->ManaRatio / 100.f));
+		Attacker->GetStatComponent()->AddMana(5 * (DamageObject->ManaRatio / 100.f));
 
 		if (StatComp->GetHealth() <= 0)
 		{
@@ -77,25 +77,23 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		}
 		else
 		{
-			// - 아니라면 피격애니메이션 재생
-			Attacker->OnHit(this, CurrentDamage, DamageCollider->CameraClass);
+			// - 아니라면 피격애니메이션 재생 (슈퍼아머 상태가 아니면)
+			if (!bSuperArmor && HitMontage)
+			{
+				AttackComp->SetComboTiming(false);
+				AttackComp->SetIsAttack(true);
+				PlayAnimMontage(HitMontage);
+			}
+			// - Attacker에게 공격에 성공했다는 신호를 발생시킴
+			Attacker->OnHit(this, CurrentDamage, DamageObject->CameraClass);
 		}
 	}
 
 	// 2) Knockback 수치만큼 공격자가 바라보는 방향으로 밀어냄
-	if (!bSuperArmor && DamageCollider)
+	if (!bSuperArmor && DamageObject)
 	{
 		FVector LaunchDir = EventInstigator->GetPawn()->GetActorForwardVector();
-		GetCharacterMovement()->Launch(LaunchDir * DamageCollider->KnockbackAmount);
-	}
-
-	// 3) 피격 애니메이션 재생 (SuperArmor 상태에서는 재생하지 않음)
-	//    피격시 공격중인 상태(전투중)로 변환시켜 행동을 불가능하게 함
-	if (!bSuperArmor && HitMontage)
-	{
-		AttackComp->SetComboTiming(false);
-		AttackComp->SetIsAttack(true);
-		PlayAnimMontage(HitMontage);
+		GetCharacterMovement()->Launch(LaunchDir * DamageObject->KnockbackAmount);
 	}
 
 	// 4) 피격자 기준 랜덤한 가까운 위치에 데미지 텍스트 생성

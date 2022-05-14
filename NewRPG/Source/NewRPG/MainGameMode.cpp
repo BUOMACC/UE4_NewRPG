@@ -75,10 +75,10 @@ void AMainGameMode::GameClear()
 {
 	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport()) return;
 
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	FTimerHandle Handle;
 	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
 	{
+		APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 		FInputModeUIOnly InputMode;
 		PC->SetInputMode(InputMode);
 		PC->SetShowMouseCursor(true);
@@ -96,7 +96,7 @@ void AMainGameMode::GameOver()
 
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	FTimerHandle Handle;
-	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([&]()
+	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
 	{
 		FInputModeUIOnly InputMode;
 		PC->SetInputMode(InputMode);

@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DamageObject.h"
 #include "Projectile.generated.h"
 
 UCLASS()
-class NEWRPG_API AProjectile : public AActor
+class NEWRPG_API AProjectile : public AActor, public IDamageObject
 {
 	GENERATED_BODY()
 	
@@ -15,7 +16,8 @@ public:
 	AProjectile();
 
 protected:
-	virtual void BeginPlay() override;
+	UFUNCTION()
+	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	class AEntity* ProjectileOwner;
@@ -37,15 +39,5 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass);
-
-protected:
-	UFUNCTION()
-	virtual void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
-protected:
-	int32 DamageRatio;		// 데미지 비율 (100 = 1배)
-	int32 ManaRatio;		// 획득마나 비율 (100 = 1배)
-	float KnockbackAmount;  // 뒤로 밀치는 강도
-	TSubclassOf<UMatineeCameraShake> CameraClass;	// 카메라 흔들림
+	virtual void SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass) override;
 };
