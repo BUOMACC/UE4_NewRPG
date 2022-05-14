@@ -34,6 +34,20 @@ private:
 	UPROPERTY()
 	UHudWidget* HudWidget;
 
+	// 던전목록을 보여주는 화면
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class UDungeonMenu> DungeonMenuClass;
+
+	UPROPERTY()
+	class UDungeonMenu* DungeonMenu;
+
+	// Shop
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<class UShop> ShopClass;
+
+	UPROPERTY()
+	class UShop* ShopWidget;
+
 	// 로딩시 사용될 화면
 	UPROPERTY(EditAnywhere, Category = "Widget")
 	TSubclassOf<class ULoadingScreen> LoadingClass;

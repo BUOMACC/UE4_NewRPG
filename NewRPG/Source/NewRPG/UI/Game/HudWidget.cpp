@@ -10,8 +10,6 @@
 #include "UI/Main/Inventory/Inventory.h"
 #include "UI/Main/Inventory/EquipSlot.h"
 #include "UI/Main/Inventory/Slot.h"
-#include "UI/Main/Shop.h"
-#include "UI/Game/DungeonMenu.h"
 
 
 void UHudWidget::NativeOnInitialized()
@@ -23,29 +21,9 @@ void UHudWidget::NativeOnInitialized()
 }
 
 
-void UHudWidget::NativeConstruct()
-{
-	Super::NativeConstruct();
-
-	// * Create DungeonMenu
-	if (DungeonMenuClass)
-	{
-		DungeonMenu = CreateWidget<UDungeonMenu>(this, DungeonMenuClass);
-	}
-
-	// * Create Shop
-	if (ShopClass)
-	{
-		ShopWidget = CreateWidget<UShop>(this, ShopClass);
-	}
-}
-
-
 void UHudWidget::BringToFront(UUserWidget* TargetWidget)
 {
-	MaxZOrder = MaxZOrder + 1;
-	if (MaxZOrder >= 10000000)
-		MaxZOrder -= 10000000;
+	MaxZOrder = (MaxZOrder + 1) % 10000000;
 	UWidgetLayoutLibrary::SlotAsCanvasSlot(TargetWidget)->SetZOrder(MaxZOrder);
 }
 
@@ -88,29 +66,4 @@ void UHudWidget::ShowInteractMark(bool Flag)
 	{
 		InteractMark->SetVisibility(ESlateVisibility::Hidden);
 	}
-}
-
-
-void UHudWidget::OpenDungeonMenu()
-{
-	if (DungeonMenu == nullptr && DungeonMenu->IsInViewport()) return;
-
-	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-	DungeonMenu->SetDesiredSizeInViewport(FVector2D(1200, 700));
-	DungeonMenu->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
-	DungeonMenu->SetPositionInViewport(Pos / 2, true);
-	DungeonMenu->AddToViewport();
-}
-
-
-void UHudWidget::OpenShop(UDataTable* ShopTable)
-{
-	if (ShopTable == nullptr || ShopWidget == nullptr || ShopWidget->IsInViewport()) return;
-
-	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
-	ShopWidget->SetDesiredSizeInViewport(FVector2D(800, 600));
-	ShopWidget->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
-	ShopWidget->SetPositionInViewport(Pos / 2, true);
-	ShopWidget->ShopTable = ShopTable;
-	ShopWidget->AddToViewport();
 }

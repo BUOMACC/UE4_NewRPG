@@ -1,15 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Controller/PlayerGameController.h"
 #include "Entity/Player/BasePlayer.h"
 #include "KIsmet/Gameplaystatics.h"
+#include "UI/Game/DungeonMenu.h"
 #include "UI/Game/HudWidget.h"
 #include "UI/Game/StatusWidget.h"
 #include "UI/Game/QuickSlot.h"
 #include "UI/Main/Inventory/EquipSlot.h"
 #include "UI/Main/Inventory/Inventory.h"
 #include "UI/Main/Inventory/Slot.h"
+#include "UI/Main/Shop.h"
 #include "UI/LoadingScreen.h"
 #include "UI/Option.h"
 #include "GameData.h"
@@ -29,6 +31,18 @@ void APlayerGameController::BeginPlay()
 	{
 		HudWidget = CreateWidget<UHudWidget>(this, HudWidgetClass);
 		ShowHud(true);
+	}
+
+	// * DungeonMenu Widget 积己
+	if (DungeonMenuClass)
+	{
+		DungeonMenu = CreateWidget<UDungeonMenu>(this, DungeonMenuClass);
+	}
+
+	// * Shop Widget 积己
+	if (ShopClass)
+	{
+		ShopWidget = CreateWidget<UShop>(this, ShopClass);
 	}
 
 	// LoadingScreen捞 绝促搁 积己
@@ -90,48 +104,53 @@ void APlayerGameController::ShowInventory()
 	HudWidget->ShowInventory(true);
 	HudWidget->ShowEquipSlot(true);
 	AddUIStack(2);
-	FInputModeUIOnly InputMode;
-	SetShowMouseCursor(true);
-	SetInputMode(InputMode);
 }
 
 
 void APlayerGameController::OpenDungeonMenu()
 {
-	HudWidget->OpenDungeonMenu();
+	if (DungeonMenu == nullptr && DungeonMenu->IsInViewport()) return;
+
+	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+	DungeonMenu->SetDesiredSizeInViewport(FVector2D(1200, 700));
+	DungeonMenu->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
+	DungeonMenu->SetPositionInViewport(Pos / 2, true);
+	DungeonMenu->AddToViewport();
 	AddUIStack(1);
-	FInputModeUIOnly InputMode;
-	SetShowMouseCursor(true);
-	SetInputMode(InputMode);
 }
 
 
 void APlayerGameController::OpenShop(class UDataTable* ShopTable)
 {
-	HudWidget->OpenShop(ShopTable);
+	if (ShopTable == nullptr || ShopWidget == nullptr || ShopWidget->IsInViewport()) return;
+
+	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
+	ShopWidget->SetDesiredSizeInViewport(FVector2D(800, 600));
+	ShopWidget->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
+	ShopWidget->SetPositionInViewport(Pos / 2, true);
+	ShopWidget->ShopTable = ShopTable;
+	ShopWidget->AddToViewport();
 	AddUIStack(1);
-	FInputModeUIOnly InputMode;
-	SetShowMouseCursor(true);
-	SetInputMode(InputMode);
 }
+
 
 
 void APlayerGameController::OpenLoadingScreen(FName LevelName, float WaitTime)
 {
 	if (LoadingScreen == nullptr) return;
+
 	LoadingScreen->AddToViewport();
 	LoadingScreen->StartLoading(LevelName, WaitTime);
+	AddUIStack(1);
 }
 
 
 void APlayerGameController::OpenOption()
 {
 	if (OptionWidget == nullptr) return;
-	AddUIStack(1);
-	FInputModeUIOnly InputMode;
-	SetShowMouseCursor(true);
-	SetInputMode(InputMode);
+
 	OptionWidget->AddToViewport();
+	AddUIStack(1);
 }
 
 
@@ -209,6 +228,12 @@ void APlayerGameController::AddUIStack(int32 Amount)
 
 		FInputModeGameOnly InputMode;
 		SetShowMouseCursor(false);
+		SetInputMode(InputMode);
+	}
+	else
+	{
+		FInputModeUIOnly InputMode;
+		SetShowMouseCursor(true);
 		SetInputMode(InputMode);
 	}
 }

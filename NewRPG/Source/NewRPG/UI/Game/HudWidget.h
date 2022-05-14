@@ -16,7 +16,6 @@ class NEWRPG_API UHudWidget : public UUserWidget
 	
 protected:
 	virtual void NativeOnInitialized() override;
-	virtual void NativeConstruct() override;
 
 	// 드래그를 통해 위치변경이 가능한 위젯(Draggable Window)
 	// 클릭시 화면의 맨 앞으로 가져오는 함수
@@ -39,19 +38,6 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UHorizontalBox* InteractMark;
 
-	// Dungeon Menu
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UDungeonMenu> DungeonMenuClass;
-
-	UPROPERTY()
-	class UDungeonMenu* DungeonMenu;
-
-	// Shop
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UShop> ShopClass;
-
-	UPROPERTY()
-	class UShop* ShopWidget;
 
 private:
 	UPROPERTY()
@@ -59,11 +45,8 @@ private:
 	int32 MaxZOrder;
 
 public:
-	// Show = Visibility
-	// Open = AddToViewport
+	// * Show : Collapsed / Visibility를 통한 표시
 	void ShowInventory(bool Flag);
 	void ShowEquipSlot(bool Flag);
 	void ShowInteractMark(bool Flag);
-	void OpenDungeonMenu();
-	void OpenShop(class UDataTable* ShopTable);
 };
