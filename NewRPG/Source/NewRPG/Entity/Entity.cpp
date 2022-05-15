@@ -2,10 +2,12 @@
 
 
 #include "Entity.h"
+#include "Controller/PlayerGameController.h"
 #include "Components/CapsuleComponent.h"
 #include "DamageObject/DamageObject.h"
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
+#include "Entity/BuffComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MainGameMode.h"
 
@@ -17,7 +19,9 @@ AEntity::AEntity()
 	// 필요한 커스텀 컴포넌트 생성
 	StatComp = CreateDefaultSubobject<UStatComponent>(TEXT("StatComponent"));
 	AttackComp = CreateDefaultSubobject<UAttackComponent>(TEXT("AttackComponent"));
+	BuffComp = CreateDefaultSubobject<UBuffComponent>(TEXT("BuffComponent"));
 
+	OriginSpd = 600.f;
 	MoveSpd = 600.f;
 	bInvincible = false;
 	bSuperArmor = true;
@@ -32,6 +36,8 @@ void AEntity::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	BuffComp->OnApplyBuff.BindUFunction(this, TEXT("OnApplyBuff"));
+	BuffComp->OnExpireBuff.BindUFunction(this, TEXT("OnExpireBuff"));
 }
 
 
@@ -48,28 +54,35 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 
 	IDamageObject* DamageObject = Cast<IDamageObject>(DamageCauser);
 	AEntity* Attacker = Cast<AEntity>(EventInstigator->GetPawn());
-	if (Attacker == nullptr)
+	if (Attacker == nullptr && DamageObject == nullptr)
 		return CurrentDamage;
 
-	bool bIsCritical = Attacker->CalculateCritical();
-
+	// ------------------|데미지 계산|-------------------
 	// 무적상태인 경우 피해를 무시
-	if (bInvincible) return CurrentDamage;
+	if (bInvincible)
+		return CurrentDamage;
+
+	// 크리티컬 피해인경우 데미지 1.5배
+	bool bIsCritical = Attacker->CalculateCritical();
+	if (bIsCritical)
+		CurrentDamage *= 1.5f;
+	// -------------------------------------------------
+
 
 	// 1) 피해를 입음 (+MP 회복)
 	if (CurrentDamage > 0)
 	{
-		// - 크리티컬일 경우 데미지 1.5배
-		if (bIsCritical)
-			CurrentDamage *= 1.5f;
-
 		// - 방어력만큼 데미지 감소
-		CurrentDamage *= 1.f - (StatComp->GetDefence() / 100.f);
+		//   * 방어력은 스텟 + 버프효과의 합산
+		float Defence = StatComp->GetDefence() + BuffComp->GetBuffAmount(EBuffType::ArmorUP);
+		Defence = FMath::Clamp(Defence, 0.f, 100.f);
+		CurrentDamage *= 1.f - (Defence / 100.f);
 		StatComp->AddHealth(-CurrentDamage);
 
 		// - 공격자 MP회복 (기본 5 * 비율)
 		Attacker->GetStatComponent()->AddMana(5 * (DamageObject->ManaRatio / 100.f));
 
+		// - 체력 체크
 		if (StatComp->GetHealth() <= 0)
 		{
 			// - 모든 체력이 깎였다면 죽음
@@ -77,9 +90,12 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		}
 		else
 		{
-			// - 아니라면 피격애니메이션 재생 (슈퍼아머 상태가 아니면)
+			// - 아니라면 넉백 + 피격애니메이션 재생 (슈퍼아머 상태가 아니면)
 			if (!bSuperArmor && HitMontage)
 			{
+				FVector LaunchDir = EventInstigator->GetPawn()->GetActorForwardVector();
+				GetCharacterMovement()->Launch(LaunchDir * DamageObject->KnockbackAmount);
+
 				AttackComp->SetComboTiming(false);
 				AttackComp->SetIsAttack(true);
 				PlayAnimMontage(HitMontage);
@@ -89,14 +105,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		}
 	}
 
-	// 2) Knockback 수치만큼 공격자가 바라보는 방향으로 밀어냄
-	if (!bSuperArmor && DamageObject)
-	{
-		FVector LaunchDir = EventInstigator->GetPawn()->GetActorForwardVector();
-		GetCharacterMovement()->Launch(LaunchDir * DamageObject->KnockbackAmount);
-	}
-
-	// 4) 피격자 기준 랜덤한 가까운 위치에 데미지 텍스트 생성
+	// 2) 피격자 기준 랜덤한 가까운 위치에 데미지 텍스트 생성
 	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
 	if (GM)
 	{
@@ -124,9 +133,55 @@ void AEntity::Dead(AActor* Killer)
 }
 
 
+void AEntity::OnApplyBuff(UBuffData* Buff, bool AlreadyHasBuff)
+{
+	// -버프효과를 UI에 표시하는 부분
+	APlayerGameController* PC = Cast<APlayerGameController>(GetController());
+	if (PC)
+	{
+		PC->GetHudWidget()->AddBuffIcon(Buff);
+	}
+
+	// * 만약 이미 적용중인 버프였다면, 효과를 재적용시키지 않음
+	if (AlreadyHasBuff)
+		return;
+
+	// - 실제 버프효과 적용부분
+	switch (Buff->BuffType)
+	{
+		// 1) 이동속도 버프 처리
+	case EBuffType::Speed:
+		float SpeedRatio = 1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f);
+		GetCharacterMovement()->MaxWalkSpeed = OriginSpd * SpeedRatio;
+		break;
+	}
+}
+
+
+void AEntity::OnExpireBuff(UBuffData* Buff)
+{
+	switch (Buff->BuffType)
+	{
+		// 1) 이동속도 버프 처리
+	case EBuffType::Speed:
+		float SpeedRatio = 1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f);
+		GetCharacterMovement()->MaxWalkSpeed = OriginSpd * SpeedRatio;
+		break;
+	}
+
+	APlayerGameController* PC = Cast<APlayerGameController>(GetController());
+	if (PC)
+	{
+		PC->GetHudWidget()->RemoveBuffIcon(Buff);
+	}
+}
+
+
 float AEntity::CalculateDamage(float RatioAmount)
 {
-	return StatComp->GetStrength() * (RatioAmount / 100.f);
+	// 버프 효과를 포함해 데미지계산
+	return StatComp->GetStrength() * (1.f + BuffComp->GetBuffAmount(EBuffType::PowerUP) / 100.f)
+								   * (RatioAmount / 100.f);
 }
 
 

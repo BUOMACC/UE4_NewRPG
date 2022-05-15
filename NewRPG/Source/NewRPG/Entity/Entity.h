@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Data/BuffData.h"
 #include "Entity.generated.h"
 
 UCLASS()
@@ -26,7 +27,8 @@ public:
 	FText EntityName;
 
 protected:
-	float MoveSpd;
+	float OriginSpd;	// 저장용 기본 이동속도
+	float MoveSpd;		// 기본 이동속도
 
 	bool bInvincible;
 	bool bSuperArmor;
@@ -34,11 +36,14 @@ protected:
 	bool bIsDead;
 
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-
-	// 데미지를 입혔을때 공격자에게 호출
 	virtual void OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCameraShake> CameraClass);
-	// 죽었을때 호출
 	virtual void Dead(AActor* Killer);
+
+	UFUNCTION()
+	void OnApplyBuff(class UBuffData* Buff, bool AlreadyHasBuff);
+
+	UFUNCTION()
+	void OnExpireBuff(class UBuffData* Buff);
 
 protected:
 	UPROPERTY(VisibleAnywhere)
@@ -47,6 +52,10 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	class UAttackComponent* AttackComp;
 
+	UPROPERTY(VisibleAnywhere)
+	class UBuffComponent* BuffComp;
+
+	UPROPERTY()
 	class UAnimMontage* HitMontage;
 
 public:
@@ -55,6 +64,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Entity")
 	UAttackComponent* GetAttackComponent() { return AttackComp; }
+
+	UFUNCTION(BlueprintPure, Category = "Entity")
+	UBuffComponent* GetBuffComponent() { return BuffComp; }
 
 	UFUNCTION(BlueprintCallable, Category = "Entity")
 	void SetSuperArmor(bool Flag) { bSuperArmor = Flag; }

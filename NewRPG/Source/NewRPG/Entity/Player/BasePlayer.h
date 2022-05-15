@@ -15,9 +15,6 @@ class NEWRPG_API ABasePlayer : public AEntity
 public:
 	ABasePlayer();
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<UMatineeCameraShake> TestShake;
-
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
@@ -31,7 +28,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Entity Data")
 	class UDataTable* CharacterTable;
 
-protected:
 	UPROPERTY(VisibleAnywhere)
 	class USpringArmComponent* SpringArmComp;
 

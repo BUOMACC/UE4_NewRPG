@@ -80,7 +80,6 @@ void APlayerGameController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	//InputComponent->BindAction(TEXT("Interact"), EInputEvent::IE_Pressed, this, &APlayerGameController::NewOpenLevel);
 	InputComponent->BindAction(TEXT("QuickSlot_0"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot0);
 	InputComponent->BindAction(TEXT("QuickSlot_1"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot1);
 	InputComponent->BindAction(TEXT("QuickSlot_2"), EInputEvent::IE_Pressed, this, &APlayerGameController::UseQuickSlot2);

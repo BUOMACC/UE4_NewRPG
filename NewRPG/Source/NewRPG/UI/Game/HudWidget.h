@@ -38,6 +38,13 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	class UHorizontalBox* InteractMark;
 
+	UPROPERTY(meta = (BindWidget))
+	class UHorizontalBox* BuffList;
+
+protected:
+	// BuffIcon Class
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UBuffIcon> BuffIconClass;
 
 private:
 	UPROPERTY()
@@ -45,6 +52,10 @@ private:
 	int32 MaxZOrder;
 
 public:
+	// 버프를 받았을때 호출시킬 함수
+	void AddBuffIcon(class UBuffData* Buff);
+	void RemoveBuffIcon(class UBuffData* Buff);
+
 	// * Show : Collapsed / Visibility를 통한 표시
 	void ShowInventory(bool Flag);
 	void ShowEquipSlot(bool Flag);

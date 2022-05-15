@@ -10,6 +10,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Entity/AttackComponent.h"
 #include "Entity/StatComponent.h"
+#include "Entity/BuffComponent.h"
 #include "Entity/InteractActor.h"
 #include "Engine/DataTable.h"
 #include "Engine/World.h"
@@ -92,6 +93,8 @@ void ABasePlayer::Tick(float DeltaTime)
 	RollingMove();
 	TryInteract();
 	HealStamina(DeltaTime);
+
+	UE_LOG(LogTemp, Warning, TEXT("Your SPD : %f"), GetCharacterMovement()->MaxWalkSpeed);
 }
 
 
@@ -134,9 +137,9 @@ void ABasePlayer::OnHit(AEntity* Victim, float Damage, TSubclassOf<UMatineeCamer
 void ABasePlayer::ToggleBattleMode()
 {
 	// 공격중이라면 모드 전환을 불가능하게 함
-	if (AttackComp->GetIsAttack()) return;
-	if (AttackComp->GetComboTiming() == false) return;
-	if (GetCharacterMovement()->IsFalling()) return;
+	if (AttackComp->GetIsAttack()
+		|| AttackComp->GetComboTiming() == false
+		|| GetCharacterMovement()->IsFalling()) return;
 	
 	if (bBattleMode)
 	{
@@ -144,13 +147,16 @@ void ABasePlayer::ToggleBattleMode()
 		{
 			AttackComp->SetComboTiming(false);
 			PlayAnimMontage(TravelStartMontage, 1.0f);
-			GetCharacterMovement()->MaxWalkSpeed = MoveSpd;
+			OriginSpd = MoveSpd;
+			GetCharacterMovement()->MaxWalkSpeed = OriginSpd * (1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f));
+			
 		}
 	}
 	else
 	{
 		AttackComp->AttackLeft(1.0f + (StatComp->GetASpeed() / 100.f));
-		GetCharacterMovement()->MaxWalkSpeed = BattleMoveSpd;
+		OriginSpd = BattleMoveSpd;
+		GetCharacterMovement()->MaxWalkSpeed = OriginSpd * (1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f));
 	}
 	bBattleMode = !bBattleMode;
 }
@@ -278,7 +284,8 @@ void ABasePlayer::RollingEnd()
 	}
 	// 공격도중 구르기를 사용할수 있기때문에 AttackComponent 관련 변수를 초기화
 	// -> 다시 공격이 가능한 상태가됨
-	GetCharacterMovement()->MaxWalkSpeed = (bBattleMode) ? BattleMoveSpd : MoveSpd;
+	OriginSpd = (bBattleMode) ? BattleMoveSpd : MoveSpd;
+	GetCharacterMovement()->MaxWalkSpeed = OriginSpd * (1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f));
 	bRolling = false;
 	bInvincible = false;
 	AttackComp->CancelAttack();
@@ -395,6 +402,7 @@ void ABasePlayer::SettingStatFromTable()
 		StatComp->SetASpeed(CharacterRow->AttackSpeed);
 
 		MoveSpd = CharacterRow->MoveSpd;
+		OriginSpd = MoveSpd;
 		TravelStartMontage = CharacterRow->TravelStartMontage;
 		GetCharacterMovement()->MaxWalkSpeed = MoveSpd;
 
