@@ -32,9 +32,6 @@ AEnemy::AEnemy()
 	// * CharacterMovement 설정
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 	GetCharacterMovement()->MaxWalkSpeed = 300.f;
-
-
-	// * 초기화
 }
 
 

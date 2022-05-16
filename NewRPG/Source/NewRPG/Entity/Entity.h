@@ -45,6 +45,9 @@ protected:
 	UFUNCTION()
 	void OnExpireBuff(class UBuffData* Buff);
 
+	UFUNCTION()
+	void WaitToStart();
+
 protected:
 	UPROPERTY(VisibleAnywhere)
 	class UStatComponent* StatComp;
@@ -73,6 +76,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Entity")
 	bool GetIsDead() { return bIsDead; }
+
+	UFUNCTION(BlueprintPure, Category = "Entity")
+	bool GetCanMove() { return bCanMove; }
 
 	UFUNCTION(BlueprintPure, Category = "Entity")
 	float CalculateDamage(float RatioAmount);		// RatioAmount : 100 = 기본 Strength가 데미지

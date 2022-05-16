@@ -4,6 +4,7 @@
 #include "Projectile.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Data/BuffData.h"
 #include "Entity/Entity.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -28,13 +29,14 @@ AProjectile::AProjectile()
 }
 
 
-void AProjectile::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass)
+void AProjectile::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, UBuffData* NewBuffData)
 {
 	Attacker = WhoSpawned;
 	DamageRatio = DmgRatio;
 	ManaRatio = MpRatio;
 	KnockbackAmount = Knockback;
 	CameraClass = NewCameraClass;
+	BuffData = NewBuffData;
 
 	SetLifeSpan(LifeTime);
 }

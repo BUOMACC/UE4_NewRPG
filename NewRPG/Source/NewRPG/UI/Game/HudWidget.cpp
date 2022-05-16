@@ -6,6 +6,7 @@
 #include "Components/VerticalBox.h"
 #include "Components/HorizontalBox.h"
 #include "Components/CanvasPanelSlot.h"
+#include "Components/WrapBox.h"
 #include "Data/BuffData.h"
 #include "Entity/BuffComponent.h"
 #include "UI/Main/DraggableWindow.h"

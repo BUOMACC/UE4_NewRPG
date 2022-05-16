@@ -27,7 +27,8 @@ public:
 	int32 ManaRatio;		// 획득마나 비율 (100 = 1배)
 	float KnockbackAmount;  // 뒤로 밀치는 강도
 	TSubclassOf<UMatineeCameraShake> CameraClass;
+	class UBuffData* BuffData;
 
 	// 값들을 초기화하고 파괴(삭제)시간을 설정
-	virtual void SetData(class AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass) = 0;
+	virtual void SetData(class AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, class UBuffData* NewBuffData) = 0;
 };

@@ -13,6 +13,7 @@ AMainGameMode::AMainGameMode()
 {
 	EnemyCount = 0;
 	PoolCount = 50;
+	WaitTime = 0.f;
 }
 
 

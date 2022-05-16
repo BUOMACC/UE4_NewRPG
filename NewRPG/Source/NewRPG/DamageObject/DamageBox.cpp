@@ -3,6 +3,7 @@
 
 #include "DamageBox.h"
 #include "Components/BoxComponent.h"
+#include "Data/BuffData.h"
 #include "Entity/Entity.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -18,13 +19,14 @@ ADamageBox::ADamageBox()
 }
 
 
-void ADamageBox::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MPRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass)
+void ADamageBox::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MPRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, UBuffData* NewBuffData)
 {
 	Attacker = WhoSpawned;
 	DamageRatio = DmgRatio;
 	ManaRatio = MPRatio;
 	KnockbackAmount = Knockback;
 	CameraClass = NewCameraClass;
+	BuffData = NewBuffData;
 
 	SetLifeSpan(LifeTime);
 }

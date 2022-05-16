@@ -43,7 +43,10 @@ private:
 	TSubclassOf<UMatineeCameraShake> CameraClass;	// 카메라 흔들림
 
 	UPROPERTY(EditAnywhere)
-	float LifeTime;		// Collider 유지시간
+	class UBuffData* BuffData;	// 적용할 디버프
+
+	UPROPERTY(EditAnywhere)
+	float LifeTime;				// Collider 유지시간
 
 	virtual FString GetNotifyName_Implementation() const override;
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation);

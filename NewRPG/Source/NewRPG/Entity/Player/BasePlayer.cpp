@@ -93,8 +93,6 @@ void ABasePlayer::Tick(float DeltaTime)
 	RollingMove();
 	TryInteract();
 	HealStamina(DeltaTime);
-
-	UE_LOG(LogTemp, Warning, TEXT("Your SPD : %f"), GetCharacterMovement()->MaxWalkSpeed);
 }
 
 

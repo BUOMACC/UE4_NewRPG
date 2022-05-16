@@ -27,8 +27,6 @@ protected:
 	UPROPERTY()
 	class UDungeonClear* DungeonEndWidget;
 
-	int32 EnemyCount;
-
 	// 클리어 보상
 	UPROPERTY(EditAnywhere, Category = "Clear Reward")
 	class UDropData* DropData;
@@ -43,7 +41,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Clear Reward")
 	int32 Max_Gold;
 
+	// 적 객체수가 몇인지
+	int32 EnemyCount;
+
 public:
+	// 게임 시작까지 얼마나 기다릴지/이동이 불가한지 - 컷씬에 주로 사용)
+	UPROPERTY(EditAnywhere, Category = "CutScene")
+	float WaitTime;
+
 	void AddEnemyCount(int32 Amount);
 	void GameClear();
 	void GameOver();

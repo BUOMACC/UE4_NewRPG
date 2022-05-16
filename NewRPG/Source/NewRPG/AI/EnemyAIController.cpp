@@ -3,6 +3,7 @@
 
 #include "EnemyAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "MainGameMode.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -22,7 +23,6 @@ void AEnemyAIController::BeginPlay()
 	if (AIBehaviorTree)
 	{
 		RunBehaviorTree(AIBehaviorTree);
-
 		APawn* Target = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 		GetBlackboardComponent()->SetValueAsObject(TEXT("Target"), Target);
 	}

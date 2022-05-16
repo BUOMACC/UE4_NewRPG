@@ -2,8 +2,9 @@
 
 
 #include "AnimNotify_SpawnProjectile.h"
-#include "Entity/Entity.h"
+#include "Data/BuffData.h"
 #include "DamageObject/Projectile.h"
+#include "Entity/Entity.h"
 
 
 FString UAnimNotify_SpawnProjectile::GetNotifyName_Implementation() const
@@ -32,7 +33,7 @@ void UAnimNotify_SpawnProjectile::Notify(USkeletalMeshComponent* MeshComp, UAnim
 			FRotator SpawnRot = Owner->GetActorRotation();
 
 			AProjectile* Projectile = World->SpawnActor<AProjectile>(ProjectileClass, SpawnLoc, SpawnRot);
-			Projectile->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass);
+			Projectile->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass, BuffData);
 		}
 	}
 }

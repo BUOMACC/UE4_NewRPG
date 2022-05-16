@@ -27,5 +27,5 @@ public:
 	void SetBoxSize(FVector& BoxSize);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void SetData(class AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass) override;
+	virtual void SetData(class AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, class UBuffData* NewBuffData) override;
 };

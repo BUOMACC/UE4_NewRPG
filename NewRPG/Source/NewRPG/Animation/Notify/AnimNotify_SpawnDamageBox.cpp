@@ -2,6 +2,7 @@
 
 
 #include "AnimNotify_SpawnDamageBox.h"
+#include "Data/BuffData.h"
 #include "DamageObject/DamageBox.h"
 #include "Entity/Entity.h"
 
@@ -32,7 +33,7 @@ void UAnimNotify_SpawnDamageBox::Notify(USkeletalMeshComponent* MeshComp, UAnimS
 			FRotator SpawnRot = Owner->GetActorRotation();
 
 			ADamageBox* DamageBox = World->SpawnActor<ADamageBox>(DamageBoxClass, SpawnLoc, SpawnRot);
-			DamageBox->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass);
+			DamageBox->SetData(Owner, DamageRatio, ManaRatio, Knockback, LifeTime, CameraClass, BuffData);
 			DamageBox->SetBoxSize(BoxSize);
 		}
 	}

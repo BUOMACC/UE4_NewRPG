@@ -39,7 +39,7 @@ public:
 	class UHorizontalBox* InteractMark;
 
 	UPROPERTY(meta = (BindWidget))
-	class UHorizontalBox* BuffList;
+	class UWrapBox* BuffList;
 
 protected:
 	// BuffIcon Class

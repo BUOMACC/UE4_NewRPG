@@ -38,6 +38,8 @@ void AEntity::BeginPlay()
 	
 	BuffComp->OnApplyBuff.BindUFunction(this, TEXT("OnApplyBuff"));
 	BuffComp->OnExpireBuff.BindUFunction(this, TEXT("OnExpireBuff"));
+
+	WaitToStart();
 }
 
 
@@ -81,6 +83,9 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 
 		// - 공격자 MP회복 (기본 5 * 비율)
 		Attacker->GetStatComponent()->AddMana(5 * (DamageObject->ManaRatio / 100.f));
+
+		// - 버프/디버프 적용
+		BuffComp->AddBuff(DamageObject->BuffData);
 
 		// - 체력 체크
 		if (StatComp->GetHealth() <= 0)
@@ -194,3 +199,20 @@ bool AEntity::CalculateCritical()
 }
 
 
+void AEntity::WaitToStart()
+{
+	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (GM)
+	{
+		// 기다리는동안 이동과 공격을 막음
+		AttackComp->SetComboTiming(false);
+		bCanMove = false;
+
+		FTimerHandle Handle;
+		GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([&]()
+		{
+			AttackComp->SetComboTiming(true);
+			bCanMove = true;
+		}), GM->WaitTime, false);
+	}
+}
