@@ -5,10 +5,12 @@
 #include "Controller/PlayerGameController.h"
 #include "Components/CapsuleComponent.h"
 #include "DamageObject/DamageObject.h"
+#include "Entity/Player/BasePlayer.h"
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
 #include "Entity/BuffComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "MainGameMode.h"
 
 
@@ -202,17 +204,29 @@ bool AEntity::CalculateCritical()
 void AEntity::WaitToStart()
 {
 	AMainGameMode* GM = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
-	if (GM)
+	if (GM && GM->WaitTime > 0)
 	{
 		// 기다리는동안 이동과 공격을 막음
 		AttackComp->SetComboTiming(false);
 		bCanMove = false;
 
+		// 플레이어인경우 HUD를 잠시동안 숨김
+		ABasePlayer* Player = Cast<ABasePlayer>(this);
+		APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+		if (Player && PC)
+		{
+			PC->ShowHud(false);
+		}
+
 		FTimerHandle Handle;
-		GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([&]()
+		GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
 		{
 			AttackComp->SetComboTiming(true);
 			bCanMove = true;
+			if (Player && PC)
+			{
+				PC->ShowHud(true);
+			}
 		}), GM->WaitTime, false);
 	}
 }
