@@ -20,12 +20,6 @@ public:
 	UPROPERTY(EditAnywhere)
 	float Health;
 
-	UPROPERTY(EditAnywhere)
-	float Mana;
-
-	UPROPERTY(EditAnywhere)
-	float Stamina;
-
 	// 이동속도
 	UPROPERTY(EditAnywhere)
 	float MoveSpd;
@@ -53,4 +47,8 @@ public:
 	// 피격 애니메이션
 	UPROPERTY(EditAnywhere)
 	class UAnimMontage* HitMontage;
+
+	// 피격 사운드
+	UPROPERTY(EditAnywhere, Category = "Info")
+	class USoundBase* HitSound;
 };

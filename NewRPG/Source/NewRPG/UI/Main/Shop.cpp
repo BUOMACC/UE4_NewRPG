@@ -108,6 +108,9 @@ void UShop::ProcessSelectedElement()
 		UItem* NewItem = Data->GetItemByName(SelectedElement->ItemVisual->GetSlotItem()->ItemName);
 		Inventory->AddInventory(NewItem, SelectedElement->Count);
 		Data->Gold -= SelectedElement->Price;
+
+		// 사운드 재생
+		if (BuySound) PlaySound(BuySound);
 	}
 }
 

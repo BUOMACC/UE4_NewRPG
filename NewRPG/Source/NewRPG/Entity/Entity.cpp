@@ -89,6 +89,9 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		// - 버프/디버프 적용
 		BuffComp->AddBuff(DamageObject->BuffData);
 
+		// - 사운드 재생
+		if (HitSound) UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound, GetActorLocation());
+
 		// - 체력 체크
 		if (StatComp->GetHealth() <= 0)
 		{

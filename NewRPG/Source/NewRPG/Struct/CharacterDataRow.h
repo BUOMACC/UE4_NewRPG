@@ -94,4 +94,8 @@ public:
 	// 피격 애니메이션
 	UPROPERTY(EditAnywhere, Category = "Info")
 	class UAnimMontage* HitMontage;
+
+	// 피격 사운드
+	UPROPERTY(EditAnywhere, Category = "Info")
+	class USoundBase* HitSound;
 };

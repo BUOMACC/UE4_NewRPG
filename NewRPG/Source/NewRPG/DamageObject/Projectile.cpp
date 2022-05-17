@@ -63,7 +63,10 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyEffect, SpawnTrans, true, EPSCPoolMethod::None, true);
 
-		// 3) 자신은 파괴시킴
+		// 3) 사운드 재생
+		if (DestroySound) UGameplayStatics::PlaySoundAtLocation(GetWorld(), DestroySound, GetActorLocation());
+
+		// 4) 자신은 파괴시킴
 		Destroy();
 	}
 }

@@ -415,6 +415,7 @@ void ABasePlayer::SettingStatFromTable()
 		bSuperArmor = CharacterRow->SuperArmor;
 
 		HitMontage = CharacterRow->HitMontage;
+		HitSound = CharacterRow->HitSound;
 
 		Heal_Stamina_Time = CharacterRow->Heal_Stamina_Time;
 		Remain_Stamina_Time = Heal_Stamina_Time;

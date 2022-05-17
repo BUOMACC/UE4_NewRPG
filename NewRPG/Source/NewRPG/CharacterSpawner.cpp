@@ -40,6 +40,6 @@ void ACharacterSpawner::BeginPlay()
 		{
 			PC->Possess(Character);
 		}
-		
+		Destroy();
 	}
 }

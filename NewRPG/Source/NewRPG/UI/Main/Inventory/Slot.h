@@ -106,6 +106,9 @@ protected:
 	ESlotType SlotType;
 
 	UPROPERTY(EditAnywhere)
+	class USoundBase* ClickSound;
+
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<UDragVisual> DragVisualClass;
 
 	UPROPERTY(EditAnywhere)

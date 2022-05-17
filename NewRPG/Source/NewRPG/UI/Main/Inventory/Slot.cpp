@@ -8,6 +8,7 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "DragVisual.h"
+#include "Kismet/GameplayStatics.h"
 #include "UI/Item.h"
 #include "Tooltip.h"
 #include "SelectOption.h"
@@ -120,6 +121,9 @@ void USlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEven
 	UDragVisual* DragVisual = CreateWidget<UDragVisual>(this, DragVisualClass);
 	if (DragVisual == nullptr) return;
 	DragVisual->SetVisual(Item->ItemImage);
+
+	// 사운드 재생
+	if (ClickSound) PlaySound(ClickSound);
 
 	// 드래그 정보를 저장할 Operation 설정
 	UDragDropOperation* DragOperation = Cast<UDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(UDragDropOperation::StaticClass()));

@@ -59,6 +59,9 @@ protected:
 	class UBuffComponent* BuffComp;
 
 	UPROPERTY()
+	class USoundBase* HitSound;
+
+	UPROPERTY()
 	class UAnimMontage* HitMontage;
 
 public:

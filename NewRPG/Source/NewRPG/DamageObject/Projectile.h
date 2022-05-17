@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	class UParticleSystem* DestroyEffect;
 
+	UPROPERTY(EditAnywhere)
+	class USoundBase* DestroySound;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	virtual void SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, class UBuffData* NewBuffData) override;

@@ -33,6 +33,9 @@ protected:
 	class UButton* Btn_Close;
 
 	UPROPERTY(EditAnywhere)
+	class USoundBase* BuySound;
+
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UShopElement> ElementClass;
 
 	UPROPERTY(EditAnywhere)

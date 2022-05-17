@@ -65,8 +65,6 @@ void AEnemy::SettingStatFromTable()
 	{
 		StatComp->SetStrength(EnemyRow->Strength);
 		StatComp->SetMaxHealth(EnemyRow->Health);
-		StatComp->SetMaxMana(EnemyRow->Mana);
-		StatComp->SetMaxStamina(EnemyRow->Stamina);
 
 		MoveSpd = EnemyRow->MoveSpd;
 		GetCharacterMovement()->MaxWalkSpeed = MoveSpd;
@@ -75,6 +73,7 @@ void AEnemy::SettingStatFromTable()
 		bSuperArmor = EnemyRow->SuperArmor;
 
 		HitMontage = EnemyRow->HitMontage;
+		HitSound = EnemyRow->HitSound;
 	}
 
 	StatComp->HealAll();
