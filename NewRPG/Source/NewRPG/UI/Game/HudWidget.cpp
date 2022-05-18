@@ -34,7 +34,8 @@ void UHudWidget::BringToFront(UUserWidget* TargetWidget)
 
 void UHudWidget::AddBuffIcon(UBuffData* Buff)
 {
-	if (BuffIconClass == nullptr) return;
+	if (BuffIconClass == nullptr)
+		return;
 
 	for (int i = 0; i < BuffList->GetChildrenCount(); i++)
 	{
@@ -56,7 +57,8 @@ void UHudWidget::AddBuffIcon(UBuffData* Buff)
 
 void UHudWidget::RemoveBuffIcon(UBuffData* Buff)
 {
-	if (BuffList->GetChildrenCount() == 0) return;
+	if (BuffList->GetChildrenCount() == 0)
+		return;
 
 	for (int i = 0; i < BuffList->GetChildrenCount(); i++)
 	{

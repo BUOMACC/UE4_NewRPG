@@ -24,7 +24,8 @@ void UBuffIcon::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 
 void UBuffIcon::SetBuffData(UBuffData* Data)
 {
-	if (Data == nullptr) return;
+	if (Data == nullptr)
+		return;
 
 	BuffData = Data;
 	Duration = BuffData->Duration;

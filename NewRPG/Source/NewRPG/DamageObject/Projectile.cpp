@@ -47,8 +47,6 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 	if (Attacker)
 	{
 		// 1) 닿은 액터가 Entity인 경우 피해를 입힘
-		// TODO: 나중에 인터페이스를 활용해 데미지박스와 동일하게 처리되도록 할예정임
-		//		 현재는 DamageBox만 카메라 흔들림을 처리하고있음
 		AEntity* Victim = Cast<AEntity>(OtherActor);
 		if (Victim)
 		{
@@ -56,7 +54,8 @@ void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		}
 
 		// 2) 충돌시 이펙트 생성
-		if (DestroyEffect == nullptr) return;
+		if (DestroyEffect == nullptr)
+			return;
 		FTransform SpawnTrans;
 		SpawnTrans.SetLocation(GetActorLocation());
 		SpawnTrans.SetRotation(FQuat::Identity);

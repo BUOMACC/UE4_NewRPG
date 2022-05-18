@@ -36,7 +36,8 @@ UGameData::UGameData()
 UItem* UGameData::GetItemByName(FName ItemName)
 {
 	FItemDataRow* ItemRow = ItemTable->FindRow<FItemDataRow>(ItemName, TEXT(""));
-	if (ItemRow == nullptr) return nullptr;
+	if (ItemRow == nullptr)
+		return nullptr;
 
 	// * 아이템 인스턴스 생성
 	UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
@@ -63,7 +64,8 @@ UItem* UGameData::GetItemByName(FName ItemName)
 UItem* UGameData::GetRandomItem()
 {
 	TArray<FName> RowNames = ItemTable->GetRowNames();
-	if (RowNames.Num() <= 0) return nullptr;
+	if (RowNames.Num() <= 0)
+		return nullptr;
 
 	return GetItemByName(RowNames[FMath::RandRange(0, RowNames.Num() - 1)]);
 }

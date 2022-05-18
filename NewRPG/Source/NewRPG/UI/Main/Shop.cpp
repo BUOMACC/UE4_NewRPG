@@ -39,7 +39,8 @@ void UShop::NativeConstruct()
 
 	// * ShopElement 생성
 	UGameData* Data = Cast<UGameData>(UGameplayStatics::GetGameInstance(GetWorld()));
-	if (ShopTable == nullptr || Data == nullptr || ElementClass == nullptr) return;
+	if (ShopTable == nullptr || Data == nullptr || ElementClass == nullptr)
+		return;
 
 	ShopElements->ClearChildren();
 	TArray<FName> RowNames = ShopTable->GetRowNames();
@@ -76,7 +77,8 @@ void UShop::OnClick_CloseButton()
 
 void UShop::SelectElement(UShopElement* Element)
 {
-	if (Element == nullptr) return;
+	if (Element == nullptr)
+		return;
 
 	SelectedElement = Element;
 	if (!MessageWidget->IsInViewport())
@@ -99,7 +101,8 @@ void UShop::ProcessSelectedElement()
 {
 	UGameData* Data = Cast<UGameData>(GetGameInstance());
 	APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (PC == nullptr) return;
+	if (PC == nullptr)
+		return;
 
 	if (Data->Gold >= SelectedElement->Price)
 	{

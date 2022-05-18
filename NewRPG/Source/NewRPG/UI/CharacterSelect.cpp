@@ -63,7 +63,8 @@ void UCharacterSelect::OnClick_Next()
 
 void UCharacterSelect::OnClick_Option()
 {
-	if (OptionWidget == nullptr) return;
+	if (OptionWidget == nullptr)
+		return;
 
 	if (!OptionWidget->IsInViewport())
 	{

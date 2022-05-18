@@ -51,7 +51,6 @@ void UDungeonMenu::OnClick_CloseButton()
 
 void UDungeonMenu::OnClick_Stage1()
 {
-	UE_LOG(LogTemp, Warning, TEXT("AA"));
 	ImageSwitcher->SetActiveWidgetIndex(0);
 	SelectStage = 0;
 	SetRewardSlot(DropData[SelectStage]);
@@ -60,7 +59,6 @@ void UDungeonMenu::OnClick_Stage1()
 
 void UDungeonMenu::OnClick_Stage2()
 {
-	UE_LOG(LogTemp, Warning, TEXT("BB"));
 	ImageSwitcher->SetActiveWidgetIndex(1);
 	SelectStage = 1;
 	SetRewardSlot(DropData[SelectStage]);
@@ -70,7 +68,8 @@ void UDungeonMenu::OnClick_Stage2()
 void UDungeonMenu::OnClick_Start()
 {
 	APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	if (PC == nullptr) return;
+	if (PC == nullptr)
+		return;
 
 	PC->AddUIStack(-1);
 	switch (SelectStage)

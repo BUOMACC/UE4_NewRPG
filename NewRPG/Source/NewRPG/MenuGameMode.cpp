@@ -19,10 +19,7 @@ void AMenuGameMode::BeginPlay()
 
 	// * 캐릭터 정보저장
 	if (CharacterTable == nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Character DataTable is not set!"));
 		return;
-	}
 
 	TArray<FName> RowNames = CharacterTable->GetRowNames();
 	for (const FName& CurrName : RowNames)

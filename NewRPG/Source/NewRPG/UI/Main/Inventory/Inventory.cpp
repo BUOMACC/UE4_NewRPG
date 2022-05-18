@@ -54,7 +54,8 @@ void UInventory::NativeDestruct()
 
 void UInventory::AddInventory(UItem* NewItem, int32 Count)
 {
-	if (NewItem == nullptr) return;
+	if (NewItem == nullptr)
+		return;
 
 	USlot* AvailableSlot = GetAvailableSlot(NewItem, Count);
 	if (AvailableSlot)

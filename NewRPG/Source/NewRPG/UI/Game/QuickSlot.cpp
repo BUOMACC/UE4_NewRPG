@@ -46,7 +46,8 @@ void UQuickSlot::NativeDestruct()
 
 void UQuickSlot::UseQuickSlot(int32 SlotIndex)
 {
-	if (Slots.Num() <= SlotIndex) return;
+	if (Slots.Num() <= SlotIndex)
+		return;
 
 	USlot* TargetSlot = Slots[SlotIndex];
 	UItem* TargetItem = TargetSlot->GetSlotItem();

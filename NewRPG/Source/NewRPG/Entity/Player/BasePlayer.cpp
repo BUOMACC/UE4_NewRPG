@@ -137,7 +137,8 @@ void ABasePlayer::ToggleBattleMode()
 	// 공격중이라면 모드 전환을 불가능하게 함
 	if (AttackComp->GetIsAttack()
 		|| AttackComp->GetComboTiming() == false
-		|| GetCharacterMovement()->IsFalling()) return;
+		|| GetCharacterMovement()->IsFalling())
+		return;
 	
 	if (bBattleMode)
 	{
@@ -162,7 +163,8 @@ void ABasePlayer::ToggleBattleMode()
 
 void ABasePlayer::ShakeCamera(TSubclassOf<UMatineeCameraShake> ShakeData)
 {
-	if (ShakeData == nullptr) return;
+	if (ShakeData == nullptr)
+		return;
 
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
 	if (PC)
@@ -191,7 +193,8 @@ void ABasePlayer::SettingExtraStat()
 
 UTexture2D* ABasePlayer::GetPortrait()
 {
-	if (CharacterTable == nullptr) return nullptr;
+	if (CharacterTable == nullptr)
+		return nullptr;
 
 	FCharacterDataRow* CharacterRow = CharacterTable->FindRow<FCharacterDataRow>(FName(*EntityName.ToString()), TEXT(""));
 	if (CharacterRow)
@@ -245,7 +248,8 @@ void ABasePlayer::LookUp(float Axis)
 void ABasePlayer::RollingStart()
 {
 	// 스테미너가 부족하다면 취소
-	if (StatComp->GetStamina() < RollingDecStamina) return;
+	if (StatComp->GetStamina() < RollingDecStamina)
+		return;
 
 	// 애니메이션이 있는경우
 	//  * 구르기 애니메이션을 재생
@@ -363,7 +367,8 @@ void ABasePlayer::TryInteract()
 
 void ABasePlayer::Interact()
 {
-	if (InteractActor == nullptr) return;
+	if (InteractActor == nullptr)
+		return;
 
 	IInteractActor* IActor = Cast<IInteractActor>(InteractActor);
 	if (IActor)
@@ -386,7 +391,8 @@ void ABasePlayer::HealStamina(float DeltaTime)
 
 void ABasePlayer::SettingStatFromTable()
 {
-	if (CharacterTable == nullptr) return;
+	if (CharacterTable == nullptr)
+		return;
 
 	FCharacterDataRow* CharacterRow = CharacterTable->FindRow<FCharacterDataRow>(FName(*EntityName.ToString()), TEXT(""));
 	if (CharacterRow)

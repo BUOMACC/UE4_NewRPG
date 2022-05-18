@@ -43,8 +43,10 @@ void UDungeonClear::OnClick_Ok()
 
 void UDungeonClear::AddRewardsToInventory(UDropData* NewDropData, int32 Cycle)
 {
-	if (NewDropData == nullptr || Slots.Num() == 0) return;
-	if (NewDropData->Drops.Num() == 0) return;
+	if (NewDropData == nullptr || Slots.Num() == 0)
+		return;
+	if (NewDropData->Drops.Num() == 0)
+		return;
 
 	// Cycle번 반복하여 Reward 아이템을 인벤토리에 추가
 	UGameData* Data = Cast<UGameData>(GetGameInstance());

@@ -15,9 +15,6 @@ public:
 	FName ItemName;
 
 	UPROPERTY(EditAnywhere)
-	FText ShopDesc;
-
-	UPROPERTY(EditAnywhere)
 	int32 Price;
 
 	UPROPERTY(EditAnywhere)

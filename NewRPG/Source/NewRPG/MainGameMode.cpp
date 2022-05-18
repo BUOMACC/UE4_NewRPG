@@ -28,7 +28,8 @@ void AMainGameMode::BeginPlay()
 	}
 
 	// DamageText Pooling
-	if (DamageTextClass == nullptr) return;
+	if (DamageTextClass == nullptr)
+		return;
 
 	for (int i = 0; i < PoolCount; i++)
 	{
@@ -55,7 +56,8 @@ void AMainGameMode::AddEnemyCount(int32 Amount)
 
 ADamageText* AMainGameMode::SpawnDamageText(FVector SpawnLoc, float DamageAmount, bool bIsCritical)
 {
-	if (Pool.IsEmpty()) return nullptr;
+	if (Pool.IsEmpty())
+		return nullptr;
 
 	// 풀에서 데미지 텍스트 액터를 활성화 시키고 반환
 	ADamageText* PoolActor;
@@ -74,7 +76,8 @@ ADamageText* AMainGameMode::SpawnDamageText(FVector SpawnLoc, float DamageAmount
 
 void AMainGameMode::GameClear()
 {
-	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport()) return;
+	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport())
+		return;
 
 	FTimerHandle Handle;
 	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
@@ -93,7 +96,8 @@ void AMainGameMode::GameClear()
 
 void AMainGameMode::GameOver()
 {
-	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport()) return;
+	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport())
+		return;
 
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	FTimerHandle Handle;

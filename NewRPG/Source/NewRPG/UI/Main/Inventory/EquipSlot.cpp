@@ -110,7 +110,8 @@ void UEquipSlot::RegisterEquipEvent()
 	if (PC)
 	{
 		TArray<USlot*> InvSlots = PC->GetInventory()->GetAllSlots();
-		if (InvSlots.Num() <= 0) return;
+		if (InvSlots.Num() <= 0)
+			return;
 
 		for (int i = 0; i < InvSlots.Num(); i++)
 		{
@@ -123,7 +124,8 @@ void UEquipSlot::RegisterEquipEvent()
 
 void UEquipSlot::EquipItem(USlot* TargetSlot)
 {
-	if (TargetSlot == nullptr) return;
+	if (TargetSlot == nullptr)
+		return;
 
 	USlot* EmptySlot = GetEmptySlot();
 	UItem* TargetItem = TargetSlot->GetSlotItem();
@@ -140,7 +142,8 @@ void UEquipSlot::EquipItem(USlot* TargetSlot)
 
 void UEquipSlot::UnEquipItem(USlot* TargetSlot)
 {
-	if (TargetSlot == nullptr || TargetSlot->GetSlotItem() == nullptr) return;
+	if (TargetSlot == nullptr || TargetSlot->GetSlotItem() == nullptr)
+		return;
 
 	APlayerGameController* PC = Cast<APlayerGameController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 	if (PC)
@@ -149,7 +152,8 @@ void UEquipSlot::UnEquipItem(USlot* TargetSlot)
 		UItem* TargetItem = TargetSlot->GetSlotItem();
 
 		// 인벤토리가 가득찼으면 작업을 중지
-		if (EmptySlot == nullptr) return;
+		if (EmptySlot == nullptr)
+			return;
 
 		EmptySlot->SetSlot(TargetItem, 1);
 		TargetSlot->ClearSlot();

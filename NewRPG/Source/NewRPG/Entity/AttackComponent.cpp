@@ -54,7 +54,8 @@ void UAttackComponent::AttackRandom(float PlaySpeed)
 void UAttackComponent::AttackLeft(float PlaySpeed)
 {
 	// 콤보 타이밍이 아니면 (공격 가능한 상태 X)
-	if (!bComboTiming) return;
+	if (!bComboTiming)
+		return;
 
 	// 처음 공격하는 경우
 	if (ComboIndex == -1)
@@ -77,7 +78,8 @@ void UAttackComponent::AttackLeft(float PlaySpeed)
 void UAttackComponent::AttackRight(float PlaySpeed)
 {
 	// 콤보 타이밍이 아니면 (공격 가능한 상태 X)
-	if (!bComboTiming) return;
+	if (!bComboTiming)
+		return;
 
 	// 처음 공격하는 경우
 	if (ComboIndex == -1)

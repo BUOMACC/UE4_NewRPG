@@ -108,7 +108,8 @@ void APlayerGameController::ShowInventory()
 
 void APlayerGameController::OpenDungeonMenu()
 {
-	if (DungeonMenu == nullptr && DungeonMenu->IsInViewport()) return;
+	if (DungeonMenu == nullptr && DungeonMenu->IsInViewport())
+		return;
 
 	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
 	DungeonMenu->SetDesiredSizeInViewport(FVector2D(1200, 700));
@@ -121,7 +122,8 @@ void APlayerGameController::OpenDungeonMenu()
 
 void APlayerGameController::OpenShop(class UDataTable* ShopTable)
 {
-	if (ShopTable == nullptr || ShopWidget == nullptr || ShopWidget->IsInViewport()) return;
+	if (ShopTable == nullptr || ShopWidget == nullptr || ShopWidget->IsInViewport())
+		return;
 
 	FVector2D Pos = UWidgetLayoutLibrary::GetViewportSize(GetWorld());
 	ShopWidget->SetDesiredSizeInViewport(FVector2D(800, 600));
@@ -136,7 +138,8 @@ void APlayerGameController::OpenShop(class UDataTable* ShopTable)
 
 void APlayerGameController::OpenLoadingScreen(FName LevelName, float WaitTime)
 {
-	if (LoadingScreen == nullptr) return;
+	if (LoadingScreen == nullptr)
+		return;
 
 	LoadingScreen->AddToViewport();
 	LoadingScreen->StartLoading(LevelName, WaitTime);
@@ -146,7 +149,8 @@ void APlayerGameController::OpenLoadingScreen(FName LevelName, float WaitTime)
 
 void APlayerGameController::OpenOption()
 {
-	if (OptionWidget == nullptr) return;
+	if (OptionWidget == nullptr)
+		return;
 
 	OptionWidget->AddToViewport();
 	AddUIStack(1);
@@ -155,7 +159,8 @@ void APlayerGameController::OpenOption()
 
 void APlayerGameController::UseQuickSlot0()
 {
-	if (HudWidget == nullptr) return;
+	if (HudWidget == nullptr)
+		return;
 
 	HudWidget->QuickSlot->UseQuickSlot(0);
 }
@@ -163,7 +168,8 @@ void APlayerGameController::UseQuickSlot0()
 
 void APlayerGameController::UseQuickSlot1()
 {
-	if (HudWidget == nullptr) return;
+	if (HudWidget == nullptr)
+		return;
 
 	HudWidget->QuickSlot->UseQuickSlot(1);
 }
@@ -171,7 +177,8 @@ void APlayerGameController::UseQuickSlot1()
 
 void APlayerGameController::UseQuickSlot2()
 {
-	if (HudWidget == nullptr) return;
+	if (HudWidget == nullptr)
+		return;
 
 	HudWidget->QuickSlot->UseQuickSlot(2);
 }
@@ -179,7 +186,8 @@ void APlayerGameController::UseQuickSlot2()
 
 void APlayerGameController::UseQuickSlot3()
 {
-	if (HudWidget == nullptr) return;
+	if (HudWidget == nullptr)
+		return;
 
 	HudWidget->QuickSlot->UseQuickSlot(3);
 }
@@ -190,13 +198,15 @@ void APlayerGameController::ShowHud(bool Show)
 	// 표시하기로 했다면 Viewport에 추가되어있지 않은 경우에만 보여줍니다.
 	if (Show)
 	{
-		if (HudWidget->IsInViewport()) return;
+		if (HudWidget->IsInViewport())
+			return;
 		HudWidget->AddToViewport();
 	}
 	// 표시하지 않기로 했다면 이미 Viewport에 추가된 경우에만 RemoveFromParent 합니다.
 	else
 	{
-		if (!HudWidget->IsInViewport()) return;
+		if (!HudWidget->IsInViewport())
+			return;
 		HudWidget->RemoveFromParent();
 	}
 }
@@ -204,7 +214,8 @@ void APlayerGameController::ShowHud(bool Show)
 
 void APlayerGameController::ShowInteractMark(bool Show)
 {
-	if (HudWidget == nullptr) return;
+	if (HudWidget == nullptr)
+		return;
 	HudWidget->ShowInteractMark(Show);
 }
 

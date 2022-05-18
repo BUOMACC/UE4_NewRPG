@@ -17,7 +17,6 @@ void UShopElement::SetElement(UItem* Visual, FText Title, FText Desc, int32 Gold
 	Text_Desc->SetText(Desc);
 	Text_Gold->SetText(FText::AsNumber(Gold));
 
-	// TODO: 나중에 버튼 바인딩
 	Price = Gold;
 	Count = Cnt;
 	Btn_Buy->OnClicked.AddDynamic(this, &UShopElement::OnClick_BuyItem);

@@ -31,7 +31,8 @@ void APlayerMenuController::BeginPlay()
 
 void APlayerMenuController::OpenLoadingScreen(FName LevelName, float WaitTime)
 {
-	if (LoadingScreen == nullptr) return;
+	if (LoadingScreen == nullptr)
+		return;
 	LoadingScreen->AddToViewport();
 	LoadingScreen->StartLoading(LevelName, WaitTime);
 }

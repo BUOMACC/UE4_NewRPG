@@ -43,7 +43,8 @@ FReply USlot::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointe
 	ResultReply.NativeReply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 
 	// 아이템이 없는경우 종료
-	if (Item == nullptr) return ResultReply.NativeReply;
+	if (Item == nullptr)
+		return ResultReply.NativeReply;
 
 	// Left Button Down
 	if (InMouseEvent.IsMouseButtonDown(EKeys::LeftMouseButton))
@@ -69,7 +70,8 @@ FReply USlot::OnLeftMouseButtonDown(const FGeometry& InGeometry, const FPointerE
 
 	// - OnlySee 타입의 슬롯은 보기만 가능하므로 종료
 	// - Equipment 타입의 슬롯은 드래그를 허용하지 않고 우클릭만 허용
-	if (SlotType == ESlotType::OnlySee || SlotType == ESlotType::Equipment) return ResultReply.NativeReply;
+	if (SlotType == ESlotType::OnlySee || SlotType == ESlotType::Equipment)
+		return ResultReply.NativeReply;
 
 	// 드래그 감지
 	ResultReply = UWidgetBlueprintLibrary::DetectDragIfPressed(InMouseEvent, this, FKey("LeftMouseButton"));
@@ -119,7 +121,8 @@ void USlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEven
 
 	// 드래그시 보이는 Visual 설정
 	UDragVisual* DragVisual = CreateWidget<UDragVisual>(this, DragVisualClass);
-	if (DragVisual == nullptr) return;
+	if (DragVisual == nullptr)
+		return;
 	DragVisual->SetVisual(Item->ItemImage);
 
 	// 사운드 재생
@@ -127,7 +130,8 @@ void USlot::NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEven
 
 	// 드래그 정보를 저장할 Operation 설정
 	UDragDropOperation* DragOperation = Cast<UDragDropOperation>(UWidgetBlueprintLibrary::CreateDragDropOperation(UDragDropOperation::StaticClass()));
-	if (DragOperation == nullptr) return;
+	if (DragOperation == nullptr)
+		return;
 	DragOperation->DefaultDragVisual = DragVisual;
 	DragOperation->Payload = this;
 
@@ -141,17 +145,20 @@ bool USlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDr
 
 	// 드래그한 슬롯을 USlot 타입으로 캐스팅 & 유효한지 체크
 	USlot* DragSlot = Cast<USlot>(InOperation->Payload);
-	if (DragSlot == nullptr) return false;
+	if (DragSlot == nullptr)
+		return false;
 
 	// 놓으려는 위치의 슬롯이 자기자신과 같다면 종료
-	if (DragSlot == this) return false;
+	if (DragSlot == this)
+		return false;
 
 	// - OnlySee 타입의 슬롯은 보기만 가능하므로 종료
 	// - Equipment 타입의 슬롯은 드래그를 허용하지 않고 우클릭만 허용
 	if (SlotType == ESlotType::OnlySee || SlotType == ESlotType::Equipment) return false;
 
 	UItem* DragItem = DragSlot->Item;
-	if (DragItem == nullptr) return false;
+	if (DragItem == nullptr)
+		return false;
 
 	// * Drop에 대한 로직은 이 아래에 작성
 
@@ -251,7 +258,8 @@ void USlot::SetSlot(UItem* NewItem, int32 NewCount)
 void USlot::SetCount(int32 NewCount)
 {
 	// 아이템이 없는경우 동작하지 않음
-	if (Item == nullptr) return;
+	if (Item == nullptr)
+		return;
 
 	Count = NewCount;
 	Count = FMath::Clamp(Count, 0, Item->MaxCount);
@@ -271,7 +279,8 @@ void USlot::SetCount(int32 NewCount)
 void USlot::AddCount(int32 Amount)
 {
 	// 아이템이 없는경우 동작하지 않음
-	if (Item == nullptr) return;
+	if (Item == nullptr)
+		return;
 
 	SetCount(Count + Amount);
 }
@@ -290,7 +299,8 @@ void USlot::ClearSlot()
 void USlot::SwapSlot(USlot* NewSlot)
 {
 	// 슬롯을 넘겨받지 못한경우 실행을 무시
-	if (NewSlot == nullptr) return;
+	if (NewSlot == nullptr)
+		return;
 
 	// 아이템을 서로 Swap -> 아이템에 대한 null 체크는 SetSlot에서 진행
 	UItem* Temp = Item;

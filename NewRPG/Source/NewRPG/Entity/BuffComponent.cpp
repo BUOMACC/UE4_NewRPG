@@ -24,7 +24,8 @@ void UBuffComponent::BeginPlay()
 
 void UBuffComponent::UpdateBuffDuration()
 {
-	if (Buffs.Num() == 0) return;
+	if (Buffs.Num() == 0)
+		return;
 
 	int32 GameTime = UKismetSystemLibrary::GetGameTimeInSeconds(GetWorld());
 	for (int i = 0; i < Buffs.Num(); i++)
@@ -62,7 +63,8 @@ void UBuffComponent::CalcBuffAmount(EBuffType BuffType, float Amount)
 
 void UBuffComponent::AddBuff(UBuffData* NewBuff)
 {
-	if (NewBuff == nullptr) return;
+	if (NewBuff == nullptr)
+		return;
 
 	// 이미 적용중인 버프인지 체크
 	int32 GameTime = UKismetSystemLibrary::GetGameTimeInSeconds(GetWorld());
@@ -94,7 +96,8 @@ void UBuffComponent::AddBuff(UBuffData* NewBuff)
 
 void UBuffComponent::RemoveBuff(int32 BuffIndex)
 {
-	if (Buffs[BuffIndex] == nullptr) return;
+	if (Buffs[BuffIndex] == nullptr)
+		return;
 
 	CalcBuffAmount(Buffs[BuffIndex]->BuffType, -Buffs[BuffIndex]->Amount);
 	if (OnExpireBuff.IsBound())

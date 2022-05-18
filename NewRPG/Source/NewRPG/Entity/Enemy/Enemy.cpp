@@ -59,7 +59,8 @@ void AEnemy::Tick(float DeltaTime)
 
 void AEnemy::SettingStatFromTable()
 {
-	if (EnemyTable == nullptr) return;
+	if (EnemyTable == nullptr)
+		return;
 	FEnemyDataRow* EnemyRow = EnemyTable->FindRow<FEnemyDataRow>(FName(*EntityName.ToString()), TEXT(""));
 	if (EnemyRow)
 	{

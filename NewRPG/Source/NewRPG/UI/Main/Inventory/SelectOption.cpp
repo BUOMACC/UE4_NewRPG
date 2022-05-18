@@ -50,7 +50,8 @@ void USelectOption::SetTargetSlot(USlot* Target)
 
 void USelectOption::OnClick_EquipButton()
 {
-	if (TargetSlot == nullptr) return;
+	if (TargetSlot == nullptr)
+		return;
 
 	if (TargetSlot->OnEquipItem.IsBound())
 	{
@@ -62,7 +63,8 @@ void USelectOption::OnClick_EquipButton()
 
 void USelectOption::OnClick_DestroyButton()
 {
-	if (TargetSlot == nullptr) return;
+	if (TargetSlot == nullptr)
+		return;
 
 	TargetSlot->ClearSlot();
 	RemoveFromParent();
