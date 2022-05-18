@@ -13,7 +13,6 @@ enum class EBuffType : uint8
 	PowerUP,
 	ArmorUP,
 	Speed,
-	Bleeding,
 };
 
 

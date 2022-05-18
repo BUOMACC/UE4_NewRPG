@@ -65,6 +65,9 @@ void AEnemy::SettingStatFromTable()
 	{
 		StatComp->SetStrength(EnemyRow->Strength);
 		StatComp->SetMaxHealth(EnemyRow->Health);
+		StatComp->SetDefence(EnemyRow->Defence);
+		StatComp->SetCritChance(EnemyRow->CritChance);
+		StatComp->SetASpeed(EnemyRow->AttackSpeed);
 
 		MoveSpd = EnemyRow->MoveSpd;
 		GetCharacterMovement()->MaxWalkSpeed = MoveSpd;

@@ -20,6 +20,7 @@ void UDungeonMenu::NativeOnInitialized()
 
 	Btn_Close->OnClicked.AddDynamic(this, &UDungeonMenu::OnClick_CloseButton);
 	Btn_Stage1->OnClicked.AddDynamic(this, &UDungeonMenu::OnClick_Stage1);
+	Btn_Stage2->OnClicked.AddDynamic(this, &UDungeonMenu::OnClick_Stage2);
 	Btn_Start->OnClicked.AddDynamic(this, &UDungeonMenu::OnClick_Start);
 
 	// 슬롯 저장
@@ -50,8 +51,19 @@ void UDungeonMenu::OnClick_CloseButton()
 
 void UDungeonMenu::OnClick_Stage1()
 {
+	UE_LOG(LogTemp, Warning, TEXT("AA"));
 	ImageSwitcher->SetActiveWidgetIndex(0);
 	SelectStage = 0;
+	SetRewardSlot(DropData[SelectStage]);
+}
+
+
+void UDungeonMenu::OnClick_Stage2()
+{
+	UE_LOG(LogTemp, Warning, TEXT("BB"));
+	ImageSwitcher->SetActiveWidgetIndex(1);
+	SelectStage = 1;
+	SetRewardSlot(DropData[SelectStage]);
 }
 
 
@@ -66,12 +78,22 @@ void UDungeonMenu::OnClick_Start()
 	case 0:
 		PC->OpenLoadingScreen(TEXT("StageGideon"), 3.0f);
 		break;
+
+	case 1:
+		PC->OpenLoadingScreen(TEXT("StageKwang"), 3.0f);
+		break;
 	}
 }
 
 
 void UDungeonMenu::SetRewardSlot(UDropData* NewDropData)
 {
+	// Reward Slot을 모두 비움
+	for (int i = 0; i < Slots.Num(); i++)
+	{
+		Slots[i]->ClearSlot();
+	}
+
 	if (NewDropData && Slots.Num() != 0)
 	{
 		int32 SlotIndex = 0;

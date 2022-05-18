@@ -56,10 +56,6 @@ void UBuffComponent::CalcBuffAmount(EBuffType BuffType, float Amount)
 		SpeedAmount += Amount;
 		SpeedAmount = FMath::Clamp(SpeedAmount, -100.f, 100.f);
 		break;
-
-	case EBuffType::Bleeding:
-		BleedingAmount += Amount;
-		break;
 	}
 }
 
@@ -86,13 +82,13 @@ void UBuffComponent::AddBuff(UBuffData* NewBuff)
 			return;
 		}
 	}
+	CalcBuffAmount(NewBuff->BuffType, NewBuff->Amount);
+	Buffs.Add(NewBuff);
+	StartTime.Add(GameTime);
 	if (OnApplyBuff.IsBound())
 	{
 		OnApplyBuff.Execute(NewBuff, false);
 	}
-	CalcBuffAmount(NewBuff->BuffType, NewBuff->Amount);
-	Buffs.Add(NewBuff);
-	StartTime.Add(GameTime);
 }
 
 
@@ -123,9 +119,6 @@ float UBuffComponent::GetBuffAmount(EBuffType BuffType)
 
 	case EBuffType::Speed:
 		return SpeedAmount;
-
-	case EBuffType::Bleeding:
-		return BleedingAmount;
 	}
 	return 0.f;
 }

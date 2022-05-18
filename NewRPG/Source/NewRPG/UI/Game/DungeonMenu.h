@@ -28,6 +28,9 @@ protected:
 	class UButton* Btn_Stage1;
 
 	UPROPERTY(meta = (BindWidget))
+	class UButton* Btn_Stage2;
+
+	UPROPERTY(meta = (BindWidget))
 	class UButton* Btn_Start;
 
 	UPROPERTY(meta = (BindWidget))
@@ -47,6 +50,9 @@ protected:
 
 	UFUNCTION()
 	void OnClick_Stage1();
+
+	UFUNCTION()
+	void OnClick_Stage2();
 
 	UFUNCTION()
 	void OnClick_Start();
