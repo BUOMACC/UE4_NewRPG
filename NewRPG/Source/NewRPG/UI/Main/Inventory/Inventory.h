@@ -45,7 +45,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddInventory(UItem* NewItem, int32 Count);
 
-	// 인벤토리의 모든 슬롯을 초기화시키는 함수 (비주얼적 요소 - 실질적인 데이터는 GameInstance에 포함됨)
+	// 인벤토리의 모든 슬롯을 초기화시키는 함수
 	UFUNCTION(BlueprintCallable)
 	void ClearAllInventory();
 
@@ -76,7 +76,7 @@ private:
 	UFUNCTION()
 	FText UpdateGoldText();
 
-	// TOOD: 이후 아래두개는 지웁니다.
+	// TODO: 아래 두개는 인벤토리 기능을 테스트하는 용도입니다.
 	UFUNCTION()
 	void GiveItem();
 

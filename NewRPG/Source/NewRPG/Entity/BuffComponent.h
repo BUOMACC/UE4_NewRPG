@@ -22,9 +22,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	// 버프 지속시간 갱신
 	UFUNCTION()
 	void UpdateBuffDuration();
 
+	// 버프 수치 계산
 	UFUNCTION()
 	void CalcBuffAmount(EBuffType BuffType, float Amount);
 
@@ -44,12 +46,15 @@ public:
 	FOnApplyBuff OnApplyBuff;	// 버프를 적용받은 경우
 	FOnExpireBuff OnExpireBuff;	// 버프의 지속시간 또는 해독으로 종료된 경우
 
+	// 버프 추가
 	UFUNCTION(BlueprintCallable)
 	void AddBuff(UBuffData* NewBuff);
 
+	// 버프 제거
 	UFUNCTION(BlueprintCallable)
 	void RemoveBuff(int32 BuffIndex);
 
+	// 선택한 버프의 총합 수치
 	UFUNCTION(BlueprintPure)
 	float GetBuffAmount(EBuffType BuffType);
 };

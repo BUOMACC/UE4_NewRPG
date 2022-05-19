@@ -79,6 +79,8 @@ void AMainGameMode::GameClear()
 	if (DungeonEndWidget == nullptr || DungeonEndWidget->IsInViewport())
 		return;
 
+	DungeonEndWidget->AddRewardsToInventory(DropData, DropCycle);
+	DungeonEndWidget->AddGoldToInventory(FMath::RandRange(Min_Gold, Max_Gold));
 	FTimerHandle Handle;
 	GetWorld()->GetTimerManager().SetTimer(Handle, FTimerDelegate::CreateLambda([=]()
 	{
@@ -88,8 +90,6 @@ void AMainGameMode::GameClear()
 		PC->SetShowMouseCursor(true);
 		DungeonEndWidget->AddToViewport();
 		DungeonEndWidget->PlayEndAnimation(true);
-		DungeonEndWidget->AddRewardsToInventory(DropData, DropCycle);
-		DungeonEndWidget->AddGoldToInventory(FMath::RandRange(Min_Gold, Max_Gold));
 	}), 3.f, false);
 }
 

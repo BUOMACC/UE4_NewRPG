@@ -162,7 +162,6 @@ void AEntity::OnApplyBuff(UBuffData* Buff, bool AlreadyHasBuff)
 		// 1) 이동속도 버프 처리
 	case EBuffType::Speed:
 		float SpeedRatio = 1.f + (BuffComp->GetBuffAmount(EBuffType::Speed) / 100.f);
-		UE_LOG(LogTemp, Warning, TEXT("%f * %f"), OriginSpd, SpeedRatio);
 		GetCharacterMovement()->MaxWalkSpeed = OriginSpd * SpeedRatio;
 		break;
 	}

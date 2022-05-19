@@ -96,7 +96,7 @@ void UBuffComponent::AddBuff(UBuffData* NewBuff)
 
 void UBuffComponent::RemoveBuff(int32 BuffIndex)
 {
-	if (Buffs[BuffIndex] == nullptr)
+	if (BuffIndex >= Buffs.Num())
 		return;
 
 	CalcBuffAmount(Buffs[BuffIndex]->BuffType, -Buffs[BuffIndex]->Amount);

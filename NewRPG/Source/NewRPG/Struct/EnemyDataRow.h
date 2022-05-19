@@ -12,9 +12,6 @@ struct FEnemyDataRow : public FTableRowBase
 
 public:
 	UPROPERTY(EditAnywhere)
-	FText EnemyName;
-
-	UPROPERTY(EditAnywhere)
 	float Strength;
 
 	UPROPERTY(EditAnywhere)

@@ -17,10 +17,10 @@ class USelectOption;
 UENUM(BlueprintType)
 enum class ESlotType : uint8
 {
-	Equipment,
-	QuickSlot,
-	OnlySee,
-	Inventory,
+	Equipment,	// 장비슬롯
+	QuickSlot,	// 퀵슬롯
+	OnlySee,	// 드래그 등의 동작이 불가능한 보여주기식 슬롯
+	Inventory,	// 인벤토리 슬롯
 };
 
 // SelectOption에서 아이템 장착옵션을 선택했을때 이벤트
@@ -34,8 +34,8 @@ class NEWRPG_API USlot : public UUserWidget
 	
 public:
 	// *** Delegate ***
-	FOnEquipItem OnEquipItem;
-	FOnUnEquipItem OnUnEquipItem;
+	FOnEquipItem OnEquipItem;		// 아이템을 착용하는 경우      (SelectOption에서 장착버튼을 누른경우)
+	FOnUnEquipItem OnUnEquipItem;	// 아이템 착용을 해제하는 경우  (장비버튼에 우클릭)
 
 protected:
 	virtual void NativeOnInitialized() override;
@@ -46,7 +46,7 @@ protected:
 	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
-	// 아래 4개의 오버라이드 함수는 슬롯에 마우스를 가져다 대었을때 효과를 위해 사용
+	// 아래 4개의 가상함수는 슬롯에 마우스를 가져다 대었을때 테두리색상 변경효과를 위해 사용
 	virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 	virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent);
 	virtual void NativeOnDragEnter(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation);

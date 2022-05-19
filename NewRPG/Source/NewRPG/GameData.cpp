@@ -69,3 +69,5 @@ UItem* UGameData::GetRandomItem()
 
 	return GetItemByName(RowNames[FMath::RandRange(0, RowNames.Num() - 1)]);
 }
+
+

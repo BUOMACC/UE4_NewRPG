@@ -61,7 +61,7 @@ void UDungeonClear::AddRewardsToInventory(UDropData* NewDropData, int32 Cycle)
 			UItem* NewItem = Data->GetItemByName(NewDropData->Drops[RandNum].ItemName);
 
 			// 해당하는 아이템이 있는 경우에만 추가
-			if (NewItem)
+			if (NewItem && NewItem->ItemImage != nullptr)
 			{
 				Inventory->AddInventory(NewItem, Count);
 				AddRewardSlot(NewItem, Count);

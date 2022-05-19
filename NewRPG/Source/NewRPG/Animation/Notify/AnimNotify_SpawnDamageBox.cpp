@@ -38,3 +38,5 @@ void UAnimNotify_SpawnDamageBox::Notify(USkeletalMeshComponent* MeshComp, UAnimS
 		}
 	}
 }
+
+

@@ -23,6 +23,21 @@ public:
 	class UDataTable* ShopTable;
 
 protected:
+	UFUNCTION()
+	void OnClick_CloseButton();
+
+	// 구매하려는 아이템 선택
+	UFUNCTION()
+	void SelectElement(class UShopElement* Element);
+
+	// 선택한 아이템 구매요청을 처리
+	UFUNCTION()
+	void ProcessSelectedElement();
+
+	UFUNCTION()
+	FText UpdateGoldText();
+
+protected:
 	UPROPERTY(meta = (BindWidget))
 	class UScrollBox* ShopElements;
 
@@ -43,21 +58,6 @@ protected:
 	
 	UPROPERTY()
 	class UMessageBox* MessageWidget;
-
-protected:
-	UFUNCTION()
-	void OnClick_CloseButton();
-
-	// 구매하려는 아이템 선택
-	UFUNCTION()
-	void SelectElement(class UShopElement* Element);
-
-	// 선택한 아이템 구매요청을 처리
-	UFUNCTION()
-	void ProcessSelectedElement();
-
-	UFUNCTION()
-	FText UpdateGoldText();
 
 private:
 	class UShopElement* SelectedElement;

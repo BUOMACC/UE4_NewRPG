@@ -145,11 +145,7 @@ bool USlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDr
 
 	// 드래그한 슬롯을 USlot 타입으로 캐스팅 & 유효한지 체크
 	USlot* DragSlot = Cast<USlot>(InOperation->Payload);
-	if (DragSlot == nullptr)
-		return false;
-
-	// 놓으려는 위치의 슬롯이 자기자신과 같다면 종료
-	if (DragSlot == this)
+	if (DragSlot == nullptr || DragSlot == this)
 		return false;
 
 	// - OnlySee 타입의 슬롯은 보기만 가능하므로 종료
@@ -166,10 +162,8 @@ bool USlot::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDr
 	//  1) 대상 슬롯이 비어있는 경우
 	//  2) 서로 다른 고유 ItemName을 가진 경우
 	//  3) 어느 한쪽이 보유개수를 넘은경우
-	if (Item == nullptr
-		|| DragItem->ItemName != Item->ItemName
-		|| DragSlot->Count >= DragItem->MaxCount
-		|| Count >= Item->MaxCount)
+	if (Item == nullptr || DragItem->ItemName != Item->ItemName
+		|| DragSlot->Count >= DragItem->MaxCount || Count >= Item->MaxCount)
 	{
 		// [예외] - QuickSlot 타입의 슬롯은 Potion타입의 아이템만 스왑허용
 		if (SlotType == ESlotType::QuickSlot && DragItem->ItemType != EItemType::Potion)

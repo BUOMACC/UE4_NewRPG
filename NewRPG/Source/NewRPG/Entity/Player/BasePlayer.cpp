@@ -306,6 +306,7 @@ void ABasePlayer::RollingMove()
 
 void ABasePlayer::AttackLeft()
 {
+	// 이동이 가능 & 전투모드 & 구르기중이 아니고 & 콤보가 가능한 상태면
 	if (bCanMove && bBattleMode && !bRolling && AttackComp->GetComboTiming())
 	{
 		// MP Check
