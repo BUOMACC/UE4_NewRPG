@@ -162,4 +162,7 @@ public:
 public:
 	UFUNCTION(BlueprintCallable, Category = "Stat")
 	void HealAll();
+
+	UFUNCTION(BlueprintCallable, Category = "Stat")
+	void InitOriginStat();
 };

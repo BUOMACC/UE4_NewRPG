@@ -38,10 +38,3 @@ void ANPCBase::BeginPlay()
 		NameTag->SetNameTag(NPCName);
 	}
 }
-
-
-void ANPCBase::Interact()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Interact!"));
-}
-

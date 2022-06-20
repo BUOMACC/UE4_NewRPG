@@ -8,7 +8,7 @@
 #include "NPCBase.generated.h"
 
 UCLASS()
-class NEWRPG_API ANPCBase : public ACharacter, public IInteractActor
+class NEWRPG_API ANPCBase : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -17,7 +17,6 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void Interact() override;
 
 protected:
 	UPROPERTY(VisibleAnywhere)

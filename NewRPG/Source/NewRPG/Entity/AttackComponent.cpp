@@ -8,8 +8,6 @@
 
 UAttackComponent::UAttackComponent()
 {
-	PrimaryComponentTick.bCanEverTick = true;
-
 	ComboIndex = -1;
 	bComboTiming = true;
 	bIsAttack = false;
@@ -25,13 +23,6 @@ void UAttackComponent::BeginPlay()
 	
 	// 컴포넌트가 부착된 엔티티 설정
 	OwnerComp = Cast<AEntity>(GetOwner());
-}
-
-
-void UAttackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 }
 
 

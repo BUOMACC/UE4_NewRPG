@@ -91,12 +91,10 @@ void UHudWidget::ShowEquipSlot(bool Flag)
 	if (Flag)
 	{
 		EquipSlot->SetVisibility(ESlateVisibility::Visible);
-		EquipSlot->LoadEquipSlot();
 	}
 	else
 	{
 		EquipSlot->SetVisibility(ESlateVisibility::Hidden);
-		EquipSlot->SaveEquipSlot();
 	}
 }
 

@@ -45,7 +45,11 @@ void UStatComponent::HealAll()
 	CurrHealth = Health;
 	CurrMana = Mana;
 	CurrStamina = Stamina;
-	
+}
+
+
+void UStatComponent::InitOriginStat()
+{
 	// 기본값 설정
 	OriginHealth = CurrHealth;
 	OriginStrength = Strength;

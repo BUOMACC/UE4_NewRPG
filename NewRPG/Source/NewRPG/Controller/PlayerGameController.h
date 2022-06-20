@@ -69,7 +69,6 @@ protected:
 	void UseQuickSlot1();
 	void UseQuickSlot2();
 	void UseQuickSlot3();
-	void NewOpenLevel();
 
 public:
 	void ApplyStat();	// 빙의시 장착한 장비들의 추가스텟을 스텟에 적용

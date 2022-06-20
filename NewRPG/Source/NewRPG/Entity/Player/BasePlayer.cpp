@@ -429,5 +429,6 @@ void ABasePlayer::SettingStatFromTable()
 		Heal_Stamina_PerSec = CharacterRow->Heal_Stamina_PerSec;
 	}
 
+	StatComp->InitOriginStat();
 	StatComp->HealAll();
 }

@@ -80,6 +80,7 @@ void AEnemy::SettingStatFromTable()
 		HitSound = EnemyRow->HitSound;
 	}
 
+	StatComp->InitOriginStat();
 	StatComp->HealAll();
 }
 

@@ -220,12 +220,6 @@ void APlayerGameController::ShowInteractMark(bool Show)
 }
 
 
-void APlayerGameController::NewOpenLevel()
-{
-	UGameplayStatics::OpenLevel(GetWorld(), TEXT("Field"), false);
-}
-
-
 void APlayerGameController::AddUIStack(int32 Amount)
 {
 	UIStack += Amount;
