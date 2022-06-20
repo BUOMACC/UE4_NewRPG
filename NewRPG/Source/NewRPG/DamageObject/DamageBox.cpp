@@ -19,19 +19,6 @@ ADamageBox::ADamageBox()
 }
 
 
-void ADamageBox::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MPRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, UBuffData* NewBuffData)
-{
-	Attacker = WhoSpawned;
-	DamageRatio = DmgRatio;
-	ManaRatio = MPRatio;
-	KnockbackAmount = Knockback;
-	CameraClass = NewCameraClass;
-	BuffData = NewBuffData;
-
-	SetLifeSpan(LifeTime);
-}
-
-
 void ADamageBox::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	// DamageCollider의 주인이 있는 경우에만 호출

@@ -29,19 +29,6 @@ AProjectile::AProjectile()
 }
 
 
-void AProjectile::SetData(AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, UBuffData* NewBuffData)
-{
-	Attacker = WhoSpawned;
-	DamageRatio = DmgRatio;
-	ManaRatio = MpRatio;
-	KnockbackAmount = Knockback;
-	CameraClass = NewCameraClass;
-	BuffData = NewBuffData;
-
-	SetLifeSpan(LifeTime);
-}
-
-
 void AProjectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Attacker)

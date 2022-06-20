@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "DamageObject.h"
+#include "DamageActor.h"
 #include "DamageBox.generated.h"
 
 UCLASS()
-class NEWRPG_API ADamageBox : public AActor, public IDamageObject
+class NEWRPG_API ADamageBox : public ADamageActor
 {
 	GENERATED_BODY()
 	
@@ -25,7 +25,4 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetBoxSize(FVector& BoxSize);
-
-	UFUNCTION(BlueprintCallable)
-	virtual void SetData(class AEntity* WhoSpawned, int32 DmgRatio, int32 MpRatio, float Knockback, float LifeTime, TSubclassOf<UMatineeCameraShake> NewCameraClass, class UBuffData* NewBuffData) override;
 };

@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include "Controller/PlayerGameController.h"
 #include "Components/CapsuleComponent.h"
-#include "DamageObject/DamageObject.h"
+#include "DamageObject/DamageActor.h"
 #include "Entity/Player/BasePlayer.h"
 #include "Entity/StatComponent.h"
 #include "Entity/AttackComponent.h"
@@ -56,7 +56,7 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 {
 	float CurrentDamage = Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 
-	IDamageObject* DamageObject = Cast<IDamageObject>(DamageCauser);
+	ADamageActor* DamageObject = Cast<ADamageActor>(DamageCauser);
 	AEntity* Attacker = Cast<AEntity>(EventInstigator->GetPawn());
 	if (Attacker == nullptr && DamageObject == nullptr)
 		return CurrentDamage;
@@ -84,10 +84,10 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 		StatComp->AddHealth(-CurrentDamage);
 
 		// - 공격자 MP회복 (기본 5 * 비율)
-		Attacker->GetStatComponent()->AddMana(5 * (DamageObject->ManaRatio / 100.f));
+		Attacker->GetStatComponent()->AddMana(5 * (DamageObject->GetManaRatio() / 100.f));
 
 		// - 버프/디버프 적용
-		BuffComp->AddBuff(DamageObject->BuffData);
+		BuffComp->AddBuff(DamageObject->GetBuffData());
 
 		// - 사운드 재생
 		if (HitSound) UGameplayStatics::PlaySoundAtLocation(GetWorld(), HitSound, GetActorLocation());
@@ -104,14 +104,14 @@ float AEntity::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AContro
 			if (!bSuperArmor && HitMontage)
 			{
 				FVector LaunchDir = EventInstigator->GetPawn()->GetActorForwardVector();
-				GetCharacterMovement()->Launch(LaunchDir * DamageObject->KnockbackAmount);
+				GetCharacterMovement()->Launch(LaunchDir * DamageObject->GetKnockbackAmount());
 
 				AttackComp->SetComboTiming(false);
 				AttackComp->SetIsAttack(true);
 				PlayAnimMontage(HitMontage);
 			}
 			// - Attacker에게 공격에 성공했다는 신호를 발생시킴
-			Attacker->OnHit(this, CurrentDamage, DamageObject->CameraClass);
+			Attacker->OnHit(this, CurrentDamage, DamageObject->GetCameraShakeClass());
 		}
 	}
 
